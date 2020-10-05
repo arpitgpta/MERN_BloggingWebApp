@@ -5,10 +5,6 @@ const app = express()
 
 app.use(bodyParser.urlencoded({extended: true}))
 
-
-
-
-
 app.get('/all_posts', (req, res)=>{
     console.log('all_posts');
     res.send('json of all post')
