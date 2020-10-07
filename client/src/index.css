@@ -11,8 +11,11 @@ body {
   font-family: 'Sunshiney', cursive;
 }
 
-.firstSection{
+.landingPage{
   background-color: #000;
+  height: 1500px;
+}
+.firstSection{
   opacity: .5;
   position: absolute; 
   width: 100%;
@@ -20,4 +23,32 @@ body {
   top: -115px;
 }
 
-/* Header and footer */
+.landingHeader{
+  position: absolute;
+  width: 337px;
+  height: 92.91px;
+  left: 69px;
+  top: -4.56px;
+
+  font-size: 100px;
+  line-height: 106px;
+
+  color: #EFE375;
+
+}
+.landingHeaderLinks{
+  position: absolute;
+  width: 416px;
+  height: 61px;
+  left: 940px;
+  top: 38px;
+  
+  font-family: Sunshiney;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 40px;
+  line-height: 53px;
+  
+  color: #EFE375;
+    
+}
