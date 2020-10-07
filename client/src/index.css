@@ -1,0 +1,23 @@
+/* Colors
+  yellow #EFE375
+  dark green #152C07
+  cream #EFE9CC
+*/
+
+
+
+body {
+  margin: 0;
+  font-family: 'Sunshiney', cursive;
+}
+
+.firstSection{
+  background-color: #000;
+  opacity: .5;
+  position: absolute; 
+  width: 100%;
+  left: 0;
+  top: -115px;
+}
+
+/* Header and footer */
