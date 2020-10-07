@@ -5,7 +5,7 @@ import { Route, BrowserRouter } from 'react-router-dom'
 
 import Home from './home.js'
 import About from './about.js'
-import Blog from './blog.js'
+import Blog from './components/blogPage.js'
 import Login from './login.js'
 import Signup from './signup.js'
 import AllPost from './allPost.js'

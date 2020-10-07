@@ -1,27 +1,23 @@
+/* Colors
+  yellow #EFE375
+  dark green #152C07
+  cream #EFE9CC
+*/
+
+
+
 body {
-	margin: 0;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-	"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-	sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  font-family: 'Sunshiney', cursive;
 }
 
-.navbar {
- 	margin: auto 2%;
+.firstSection{
+  background-color: #000;
+  opacity: .5;
+  position: absolute; 
+  width: 100%;
+  left: 0;
+  top: -115px;
 }
 
-.loginBtn {
-	color: white;
-	max-width: 80px;  
-}
-
-.footer {
-	font-size: .8rem;
-	margin-bottom: 5px;
-	opacity: 0.6;
-	text-align: center;
-  	position: absolute;
-  	width: 100%;
-  	bottom: 0;
-}
+/* Header and footer */

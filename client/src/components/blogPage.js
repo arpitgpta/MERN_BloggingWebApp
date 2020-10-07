@@ -1,8 +1,8 @@
 import React from 'react'
 import axios from 'axios'
 
-import Header from './components/header'
-import Footer from './components/footer'
+import Header from './header'
+import Footer from './footer'
 
 
 class Blog extends React.Component{

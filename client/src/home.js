@@ -3,60 +3,68 @@ import Header from './components/header'
 import Footer from './components/footer'
 import axios from 'axios'
 
-function Home(){
-    let you_may_like
-    axios.get('/you_may_like').then((x)=>{
-        console.log(x.data);
-        you_may_like = x
-    })
+class Home extends React.Component {
+    loadData = () => {
+        axios.get('/youMayLike').then((x) => {
+            console.log(x.data);
+            this.setState({
+                youMayLike: x.data
+            })
+        })
 
-    let trending_topics
-    axios.get('/trending_topics').then((x)=>{
-        console.log(x.data);
-        you_may_like = x
-    })
+        axios.get('/trendingTopics').then((x) => {
+            console.log(x.data);
+            this.setState({
+                trendingTopics: x.data
+            })
+        })
 
-    let trending_posts
-    axios.get('/trending_posts').then((x)=>{
-        console.log(x.data);
-        you_may_like = x
-    })    
+        axios.get('/trendingPosts').then((x) => {
+            this.setState({
+                trendingPosts: x.data
+            })
+        })
 
-    let popular_autors
-    axios.get('/popular_autors').then((x)=>{
-        console.log(x.data);
-        you_may_like = x
-    })
+        axios.get('/popularAuthors').then((x) => {
+            this.setState({
+                popularAuthors: x.data
+            })
+        })
 
-    let all_posts
-    axios.get('/all_posts').then((x)=>{
-        console.log(x.data);
-        all_posts = x
-    })
+        axios.get('/allPosts').then((x) => {
+            this.setState({
+                allPosts: x.data
+            })
+        })
+    }
 
-    return(
-        <div>
-            <Header/>
-            
-            <div className="you_may_like">
-                you_may_like
+    constructor() {
+        super()
+        this.state = {
+            youMayLike: ".....loading",
+            trendingPosts: ".....loading",
+            popularAuthors: ".....loading",
+            trendingTopics: ".....loading",
+            allPosts: ".....loading",
+        }
+    }
+
+    componentDidMount() {
+        this.loadData()
+
+    }
+
+    render() {
+        return (
+            <div className="landingPage">
+                <img className="firstSection" src="/images/firstSection_bg.jpg"/>
+                <div >
+                    
+                </div>
+                <Footer />
             </div>
-
-            <div className="trending_topics">
-                Trending topics
-            </div>
-            
-            <div className="trending_posts">
-                Trending posts
-            </div>
-
-            <div className="popular_autors">
-                Popular Authors
-            </div>
-
-            <Footer/>
-        </div>
-    )
+        )
+    }
 }
 
 export default Home

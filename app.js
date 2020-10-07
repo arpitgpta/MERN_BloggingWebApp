@@ -5,33 +5,33 @@ const app = express()
 
 app.use(bodyParser.urlencoded({extended: true}))
 
-app.get('/all_posts', (req, res)=>{
+app.get('/allPosts', (req, res)=>{
     console.log('all_posts');
     res.send('json of all post')
 })
 
 
-app.get('/you_may_like', (req, res)=>{
-    console.log('you_may_like');
+app.get('/youMayLike', (req, res)=>{
+    console.log('youMayLike');
     res.send('json of you may like')
 })
 
 
-app.get('/trending_topics', (req, res)=>{
-    console.log('trending_topics');
+app.get('/trendingTopics', (req, res)=>{
+    console.log('trendingTopics');
     res.send('json of trending topics')
 })
 
 
-app.get('/trending_posts', (req, res)=>{
-    console.log('trending_posts');
+app.get('/trendingPosts', (req, res)=>{
+    console.log('trendingPosts');
     res.send('json of trending_posts')
 })
 
 
-app.get('/popular_autors', (req, res)=>{
-    console.log('popular_autors');
-    res.send('json of popular_autors')
+app.get('/popularAuthors', (req, res)=>{
+    console.log('popularAuthors');
+    res.send('json of popularAutors')
 })
 
 
