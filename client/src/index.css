@@ -4,51 +4,97 @@
   cream #EFE9CC
 */
 
-
-
 body {
   margin: 0;
-  font-family: 'Sunshiney', cursive;
+  font-family: "Sunshiney", cursive;
 }
 
-.landingPage{
+.landingDiv {
+  width: 1730px;
+  height: 830px;
   background-color: #000;
-  height: 1500px;
-}
-.firstSection{
-  opacity: .5;
-  position: absolute; 
-  width: 100%;
-  left: 0;
-  top: -115px;
+  position: relative;
+  bottom: 10px;
 }
 
 .landingHeader{
-  position: absolute;
-  width: 337px;
-  height: 92.91px;
-  left: 69px;
-  top: -4.56px;
-
-  font-size: 100px;
-  line-height: 106px;
-
-  color: #EFE375;
-
+  opacity: .35;
 }
-.landingHeaderLinks{
+
+.landingHeader img{
+  position: relative;
+  bottom: 70px;
+  height: 100%;
+  width: 100%;
+}
+
+.headingName{
   position: absolute;
-  width: 416px;
-  height: 61px;
-  left: 940px;
-  top: 38px;
-  
-  font-family: Sunshiney;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 40px;
-  line-height: 53px;
-  
-  color: #EFE375;
-    
+  top: 20px;
+  left: 60px;
+  float: left;
+  font-size: 3.3rem;
+  color: #efe375;
+}
+
+.headingLinks{
+  position: absolute;
+  top: -10px;
+  right: 100px;
+  margin-top: 80px;
+  font-size: 1.5rem;
+  color: #efe375;
+}
+
+.headingLinks a{
+  margin-left: 50px;
+}
+
+
+.headerQuote{
+  position: absolute;
+  font-size: 1.95rem;
+  color: #efe375a8;
+  top: 370px;
+  left: 265px;
+  width: 310px;
+  transform: matrix(0.86, -0.55, 0.5, 0.85, 0, 0);
+}
+
+.headerQuote a{
+  color: #efe375;
+  background-color: #0d1f03;
+  border: 2px solid #080e05;
+  padding: 0px 12px 5px 12px;
+  border-radius: 15px;
+}
+
+.headerQuote a:hover{
+  cursor: pointer;
+  text-decoration: none;
+  color: #efe375dc;
+  background-color: #152C07;
+  box-shadow: -1px 1px 3px black;
+}
+
+
+.footer {
+  background-color: #000;
+  color: #efe375;
+  text-align: center;
+  font-size: 0.8rem;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  height: 25px;
+  width: 100%;
+}
+
+.footer p {
+  opacity: 0.8;
+}
+
+.footer a {
+  text-decoration: none;
+  color: #efe375;
 }
