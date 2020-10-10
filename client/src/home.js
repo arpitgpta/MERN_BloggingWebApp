@@ -1,27 +1,22 @@
 import React from 'react'
 import LandingHeader from './landingHeader'
+import PopularTopics from './popularTopics'
+import PopularBlogs from './popularBlogs'
+import PopularAuthors from './popularAuthors'
 import Footer from './components/footer'
 import axios from 'axios'
 
 class Home extends React.Component {
     loadData = () => {
-        axios.get('/youMayLike').then((x) => {
-            console.log(x.data);
-            this.setState({
-                youMayLike: x.dataLandingHeader
-            })
-        })
-
         axios.get('/trendingTopics').then((x) => {
-            console.log(x.data);
             this.setState({
                 trendingTopics: x.data
             })
         })
 
-        axios.get('/trendingPosts').then((x) => {
+        axios.get('/trendingBlogs').then((x) => {
             this.setState({
-                trendingPosts: x.data
+                trendingBlogs: x.data
             })
         })
 
@@ -42,7 +37,7 @@ class Home extends React.Component {
         super()
         this.state = {
             youMayLike: ".....loading",
-            trendingPosts: ".....loading",
+            trendingBlogs: ".....loading",
             popularAuthors: ".....loading",
             trendingTopics: ".....loading",
             allPosts: ".....loading",
@@ -51,28 +46,15 @@ class Home extends React.Component {
 
     componentDidMount() {
         this.loadData()
-
     }
 
     render() {
         return (
             <div className="landingPage">
                 <LandingHeader/>
-                <br/>
-                <h1>sdfffffff1</h1>
-                <h1>sdfffffff2</h1>
-                <h1>sdfffffff3</h1>
-                <h1>sdfffffff4</h1>
-                <h1>sdfffffff5</h1>
-                <h1>sdfffffff6</h1>
-                <h1>sdfffffff7</h1>
-                <h1>sdfffffff8</h1>
-                <h1>sdfffffff9</h1>
-                <h1>sdfffffff10</h1>
-                <h1>sdfffffff11</h1>
-                <h1>sdfffffff12</h1>
-                <h1>sdfffffff13</h1>
-                <h1>sdfffffff14</h1>
+                <PopularTopics topics={this.state.trendingTopics}/>
+                <PopularBlogs blogs={this.state.trendingBlogs}/>
+                <PopularAuthors authors={this.state.popularAuthors}/>
                 <Footer />
             </div>
         )

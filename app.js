@@ -1,5 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const { json } = require('body-parser')
 
 const app = express()
 
@@ -19,7 +20,10 @@ app.get('/youMayLike', (req, res)=>{
 
 app.get('/trendingTopics', (req, res)=>{
     console.log('trendingTopics');
-    res.send('json of trending topics')
+    var trendingTopics = {
+        topics : ['Science', 'IoT', 'Maths', 'Jossa', 'CSS', 'Cloud Computing', 'Hacktober', 'NIT Patna', 'Lucknow : The royal city', 'Novels', 'Robotics', 'ES6']
+    }
+    res.json(trendingTopics)
 })
 
 
