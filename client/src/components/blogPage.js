@@ -5,23 +5,44 @@ import Header from './header'
 import Footer from './footer'
 
 
-class Blog extends React.Component{
-    constructor(props){
+class Blog extends React.Component {
+
+    loadData = () => {
+        axios.get('/getBlog/' + this.state.about).then((x) => {
+            console.log(x.data);
+            this.setState({
+                title: x.data.title,
+                body: x.data.body
+            })
+        })
+    }
+
+    constructor(props) {
         super(props)
         this.state = {
-            about: props.match.params.blogid
+            about: props.match.params.blogid,
+            title: 'Loading.....',
+            body: ''
         }
     }
-    render(){
-        axios.get('/getBlog/'+this.state.about).then((x)=>{
-            console.log(x.data);
-        })
-        return(
-            <div>
-                <Header/>
-                this is a blog with blogid {this.state.about} 
-                <Footer/>
-            </div>
+    componentDidMount() {
+        this.loadData()
+    }
+    render() {
+        return (
+            <>
+                <div className="blogPageData">
+                    <Header />
+                    <h1>{this.state.title}</h1>
+                    <p>{this.state.body}</p>
+                    <Footer />
+                </div>
+
+                <div className="blogPageAuthorInfo">
+                    
+                </div>
+
+            </>
         )
     }
 }

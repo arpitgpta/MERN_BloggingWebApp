@@ -6,15 +6,10 @@ class PopularTopics extends React.Component {
     // console.log(topic)
     render() {
         let topic = []
-        if(this.props.topics === '.....loading')
-        {
-            console.log('still loading');
-        }
-        else
+        if(this.props.topics !== '.....loading')
         {
             topic = this.props.topics.topics
-            console.log(topic[0]);
-            topic = topic.map((i)=> <TopicThumbnail topicName={i}/>)
+            topic = topic.map((i)=> <TopicThumbnail topicName={i} key={i}/>)
         }
         return(
             <div className='popularTopics'>

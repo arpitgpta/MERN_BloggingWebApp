@@ -26,18 +26,29 @@ class Home extends React.Component {
             })
         })
 
-        axios.get('/allPosts').then((x) => {
-            this.setState({
-                allPosts: x.data
-            })
+        axios.get('/allBlogs').then((x) => {
+            // this.setState({
+            //     allPosts: x.data
+            // })
+            // console.log(x);
         })
     }
 
     constructor() {
         super()
+        var demoBlog = {
+            _id : '',
+            title: 'loading....',
+            author: 'loading....',
+            authorId: '',
+            body: 'loading....',
+            likes: 0,
+            dislikes: 0,
+            addedOn: '' 
+        }
         this.state = {
             youMayLike: ".....loading",
-            trendingBlogs: ".....loading",
+            trendingBlogs: [demoBlog,demoBlog,demoBlog,demoBlog,demoBlog,demoBlog,demoBlog,demoBlog],
             popularAuthors: ".....loading",
             trendingTopics: ".....loading",
             allPosts: ".....loading",

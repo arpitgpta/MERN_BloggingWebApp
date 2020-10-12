@@ -88,7 +88,7 @@ body {
 
 .popularTopics {
   padding-bottom: 20px;
-  background-color: #efe37575;
+  background-image: linear-gradient(#efe375f3, #fff);
 }
 
 .popularTopicsHeading {
@@ -138,9 +138,9 @@ body {
       #695f3a67 16.88deg,
       rgba(120, 35, 18, 0.493) 60.32deg,
       rgba(58, 3, 3, 0.11) 121.87deg,
-      #121416ce 237.6deg,
+      #394653ce 237.6deg,
       rgba(85, 54, 34, 0.39) 301.12deg,
-      #3a69526e 334.14deg,
+      #3a6952b6 334.14deg,
       #695f3a6e 376.88deg
     ),
     #f6e1bf5e;
@@ -159,7 +159,7 @@ body {
   display: inline-block;
   height: 400px;
   width: 280px;
-  border: 1px solid black;
+  border: 3px solid rgba(0, 0, 0, 0.363);
   border-radius: 120px 0 120px 0;
   /* padding: 60px 0 0 60px; */
   line-height: 0.8rem;
@@ -167,61 +167,79 @@ body {
 
 .popularBlogsContent {
   position: absolute;
-  left: 490px;
+  left: 470px;
   top: 1300px;
   transform: rotate(20deg);
 }
-#th1 {
-  background-color: rgb(221, 84, 84);
-  left: 700px;
-  top: -220px;
-}
 .blogThumbnail {
   transition-duration: 0.7s;
+  text-align: right;
+  padding: 1px;
+  padding-right: 10px;
+  padding-top: 33px;
+  text-decoration: none;
+  color: #000;
 }
 .blogThumbnail:hover {
   transform: rotate(-20deg);
   z-index: 5;
   transition-duration: 0.7s;
   box-shadow: 1px 1px 70px 0px rgb(158, 157, 157);
+  text-decoration: none;
+  color: #000;
+}
+
+.blogThumbnail hr{
+  margin-left: 60%;
+  width: 40%;
+}
+
+.blogThumbnail p{
+  color: rgba(0, 0, 0, 0.787);
+}
+
+#th1 {
+  background-color: rgb(241, 211, 211);
+  left: 700px;
+  top: -220px;
 }
 
 #th2 {
-  background-color: rgb(56, 11, 11);
+  background-color: rgb(206, 160, 160);
   left: 480px;
   top: -150px;
 }
 
 #th3 {
-  background-color: rgb(58, 49, 2);
+  background-color: rgb(223, 208, 132);
   left: 800px;
   top: 0;
 }
 
 #th4 {
-  background-color: rgb(255, 174, 0);
+  background-color: rgb(221, 203, 164);
   left: 570px;
   top: 90px;
 }
 
 #th5 {
-  background-color: rgb(27, 58, 2);
+  background-color: rgb(213, 240, 191);
   left: 330px;
   top: 0px;
 }
 
 #th6 {
-  background-color: rgb(91, 155, 39);
+  background-color: rgb(209, 241, 183);
   left: 750px;
   top: 200px;
 }
 #th7 {
-  background-color: rgb(39, 41, 155);
+  background-color: rgb(188, 189, 233);
   left: 400px;
   top: 200px;
 }
 #th8 {
-  background-color: red;
+  background-color: rgb(233, 184, 184);
   left: 550px;
   top: 350px;
 }
@@ -230,7 +248,7 @@ body {
 
 .popularAuthors {
   padding-bottom: 20px;
-  background-color: #efe37575;
+  background-image: linear-gradient(#fff, #e0d467);
 }
 
 .popularAuthorsHeading {
@@ -283,6 +301,14 @@ body {
   transform: rotate(5deg);
   transition-duration: 0.7s;
   box-shadow: 1px 1px 70px 0px rgb(158, 157, 157);
+}
+
+
+
+/* Blog Page */
+
+.blogPageData{
+  margin: auto 30%;
 }
 
 /* Footer */
