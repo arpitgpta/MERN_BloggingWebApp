@@ -1,16 +1,49 @@
 import React from "react";
+import { useAuth0 } from '@auth0/auth0-react'
 
-
-// TODO: chagne login/logout on the basis of session 
-
-function Header() {
+function Header(props) {
+    const { isAuthenticated, loginWithPopup, logout } = useAuth0()
     return (
         <div className="header">
             <div className="headingName">Contentwise</div>
             <div className='headingLinks'>
-                <a href="/">Home</a>
-                <a href="/allBlogs">All Blogs</a>
-                <a href="/login">Login</a>
+                <div className='headerLink' onClick={() => { props.history.push('/') }}>
+                    Home
+                </div>
+                <div
+                    className='headerLink'
+                    onClick={() => {
+                        if (isAuthenticated)
+                            props.history.push('/allBlogs')
+                        else
+                            loginWithPopup()
+                    }}
+                >
+                    All Blogs
+                </div>
+                <div
+                    className='headerLink'
+                    onClick={() => {
+                        if (isAuthenticated)
+                            props.history.push('/newBlog')
+                        else
+                            loginWithPopup()
+                    }}
+                >
+                    + New Blog
+                </div>
+                <div
+                    className='headerLink'
+                    onClick={() => {
+                        if (isAuthenticated) {
+                            logout()
+                        }
+                        else
+                            loginWithPopup()
+                    }}
+                >
+                    {isAuthenticated ? 'Logout' : 'Login'}
+                </div>
             </div>
         </div>
     );

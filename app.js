@@ -11,12 +11,9 @@ const app = express()
 app.use(bodyParser.urlencoded({ extended: true }))
 
 app.get('/allBlogs', (req, res) => {
-    Blog.find({}).then(blog =>{
-        blog.sort((a, b) =>{
-            return b.likes - a.likes
-        })
+    Blog.find({}).then(blog => {
+        res.json(blog)
     })
-    res.send('okk')
 })
 
 app.get('/trendingTopics', (req, res) => {
@@ -28,12 +25,12 @@ app.get('/trendingTopics', (req, res) => {
 
 
 app.get('/trendingBlogs', (req, res) => {
-    Blog.find({}).then(blog =>{
-        blog.sort((a, b) =>{
+    Blog.find({}).then(blog => {
+        blog.sort((a, b) => {
             return b.likes - a.likes
         })
         var trendingBlogs = []
-        for(var i = 0; i < 8; i++)
+        for (var i = 0; i < 8; i++)
             trendingBlogs.push(blog[i])
         res.status(200).json(trendingBlogs)
     })
@@ -55,26 +52,24 @@ app.get('/getBlog/:blogid', (req, res) => {
             console.log(err)
             res.status(500).json(err)
         })
-
 })
 
 
-// app.post('/newBlog', (req, res) => {
-//     const blog = new Blog({
-//         _id: new mongoose.Types.ObjectId(),
-//         title: req.body.title,
-//         author: 'Aman Akshar',
-//         authorId: '5f8404abc7881253c872c0e0',
-//         body: req.body.body
-//     })
-//     blog.save().then(result => {
-//         res.status(200).json(result)
-//     })
-//         .catch(err => console.log(err))
+app.post('/createNewBlog', (req, res) => {
+    const blog = new Blog({
+        _id: new mongoose.Types.ObjectId(),
+        title: req.body.title,
+        author: req.body.author,
+        authorId: req.body.authorID,
+        body: req.body.body
+    })
+    blog.save().then(result => {
+        console.log('done');
+        res.redirect('/')
+    })
+        .catch(err => console.log(err))
 
-// })
-
-
+})
 
 const PORT = 5000
 app.listen(PORT, () => {

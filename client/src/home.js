@@ -26,12 +26,6 @@ class Home extends React.Component {
             })
         })
 
-        axios.get('/allBlogs').then((x) => {
-            // this.setState({
-            //     allPosts: x.data
-            // })
-            // console.log(x);
-        })
     }
 
     constructor() {

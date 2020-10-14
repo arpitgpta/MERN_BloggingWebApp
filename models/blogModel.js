@@ -16,7 +16,7 @@ const BlogSchema = mongoose.Schema({
         required: true
     },
     authorId: {
-        type: ObjectId,
+        type: String,
         required: true,
     },
     body: {

@@ -11,30 +11,44 @@ body {
 /* Landing page */
 
 /* Header */
-.header{
+.header {
   height: 120px;
-  background-color : #EFE9CC ;
-  box-shadow: 1px 1px 10px 1px rgb(158, 100, 100); 
+  background-color: #efe9cc;
+  box-shadow: 1px 1px 10px 1px rgb(158, 100, 100);
 }
 
-.headingName{
+.headerLink {
+  cursor: pointer;
+  display: inline;
+  margin-right: 50px;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.459);
+}
+
+.headerLink:hover {
+  position: relative;
+  bottom: 3px;
+  color: rgba(0, 0, 0, 0.52);
+}
+
+.headingName {
   float: left;
   font-size: 3rem;
   margin: 15px 0 0 100px;
 }
 
-.headingLinks{
+.headingLinks {
   font-size: 1.3rem;
   float: right;
   margin: 45px 90px 0 0;
 }
 
-.headingLinks a{
+.headingLinks a {
   margin-right: 50px;
   text-decoration: none;
   color: rgba(0, 0, 0, 0.459);
 }
-.headingLinks a:hover{
+.headingLinks a:hover {
   position: relative;
   bottom: 3px;
   color: rgba(0, 0, 0, 0.52);
@@ -77,7 +91,8 @@ body {
   color: #efe375;
 }
 
-.landingHeadingLinks a, .landingHeadingLinks div {
+.landingHeadingLinks a,
+.landingHeadingLinks div {
   cursor: pointer;
   display: inline;
   margin-left: 50px;
@@ -85,7 +100,8 @@ body {
   text-decoration: none;
 }
 
-.landingHeadingLinks a:hover, .landingHeadingLinks div:hover {
+.landingHeadingLinks a:hover,
+.landingHeadingLinks div:hover {
   position: relative;
   bottom: 2px;
 }
@@ -164,19 +180,6 @@ body {
 .popularBlogs {
   width: 100%;
   height: 1050px;
-
-  /* background: conic-gradient(
-      from 180deg at 50% 60%,
-      #3a695255 -25.86deg,
-      #695f3a67 16.88deg,
-      rgba(120, 35, 18, 0.493) 60.32deg,
-      rgba(58, 3, 3, 0.11) 121.87deg,
-      #394653ce 237.6deg,
-      rgba(85, 54, 34, 0.39) 301.12deg,
-      #3a6952b6 334.14deg,
-      #695f3a6e 376.88deg
-    ),
-    #f6e1bf5e; */
   border-radius: 0px;
 }
 
@@ -187,7 +190,14 @@ body {
   color: #f14343;
 }
 
+.popularBlogsContent {
+  position: absolute;
+  left: 470px;
+  top: 1300px;
+  transform: rotate(20deg);
+}
 .blogThumbnail {
+  cursor: pointer;
   position: absolute;
   display: inline-block;
   height: 400px;
@@ -196,15 +206,7 @@ body {
   border-radius: 120px 0 120px 0;
   /* padding: 60px 0 0 60px; */
   line-height: 0.8rem;
-}
 
-.popularBlogsContent {
-  position: absolute;
-  left: 470px;
-  top: 1300px;
-  transform: rotate(20deg);
-}
-.blogThumbnail {
   transition-duration: 0.7s;
   text-align: right;
   padding: 1px;
@@ -222,14 +224,59 @@ body {
   color: #000;
 }
 
-.blogThumbnail hr{
+.blogThumbnail hr {
   margin-left: 60%;
   width: 40%;
 }
 
-.blogThumbnail p{
+.blogThumbnail p {
   color: rgba(0, 0, 0, 0.787);
 }
+
+.blogTh {
+  cursor: pointer;
+  display: inline-block;
+  height: 400px;
+  width: 280px;
+  background-image: linear-gradient(#fff,#f8ef9ff3);
+  border: 3px solid rgba(0, 0, 0, 0.363);
+  border-radius: 120px 0 120px 0;
+  line-height: 0.8rem;
+  margin-top: 50px;
+  text-align: right;
+  padding: 1px;
+  padding-right: 10px;
+  padding-top: 33px;
+  text-decoration: none;
+  color: #000;
+}
+.blogTh:hover {
+  position: relative;
+  bottom: 3px;
+}
+
+.blogTh hr {
+  margin-left: 60%;
+  width: 40%;
+}
+
+.blogTh p {
+  color: rgba(0, 0, 0, 0.787);
+}
+
+.blogThHeading{
+  padding-left: 15px;
+}
+
+.allBlogContent{
+
+  display: flex;
+  flex-wrap: wrap;
+  margin: 50px 20%;
+  justify-content: space-around;
+  align-items: center;
+}
+
 
 #th1 {
   background-color: rgb(241, 211, 211);
@@ -336,20 +383,18 @@ body {
   box-shadow: 1px 1px 70px 0px rgb(158, 157, 157);
 }
 
-
-
 /* Blog Page */
 
-.blogPage{
+.blogPage {
   margin: 50px 30%;
 }
 
-.blogPageBody{
-  font-family: 'Nunito', sans-serif;
+.blogPageBody {
+  font-family: "Nunito", sans-serif;
   text-align: justify;
 }
 
-.blogInfo{
+.blogInfo {
   position: fixed;
   top: 400px;
   left: 100px;

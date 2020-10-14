@@ -49,7 +49,7 @@ class Blog extends React.Component {
     render() {
         return (
             <>
-                <Header />
+                <Header history={this.props.history}/>
                 <div className="blogPage">
                     <h1>{this.state.title}</h1>
                     <p>{this.state.addedOn}</p>

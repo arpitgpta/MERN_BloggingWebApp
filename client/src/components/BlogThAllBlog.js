@@ -12,7 +12,7 @@ function BlogTH(props) {
 
     return (
         <div 
-            className='blogThumbnail' 
+            className='blogTh' 
             id={props.id} 
             name={props.blogData._id} 
             onClick={() => {
@@ -25,7 +25,7 @@ function BlogTH(props) {
                 loginWithPopup()
             }}>
                 
-            <h3>{props.blogData.title}</h3>
+            <h3 className='blogThHeading'>{props.blogData.title}</h3>
             <p>By: {props.blogData.author}</p>
             <ThumsUp /> {props.blogData.likes}
             <br />
