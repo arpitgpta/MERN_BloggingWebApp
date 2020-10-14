@@ -1,24 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import { Route, BrowserRouter } from 'react-router-dom'
-
-import Home from './home.js'
-import NewBlog from './newBlog.js'
-import Blog from './components/blogPage.js'
-import Login from './login.js'
-import Signup from './signup.js'
-import AllBlogs from './allBlogs.js'
+import {Auth0Provider} from '@auth0/auth0-react'
+import App from './App'
+const domain = process.env.REACT_APP_AUTH0_DOMAIN
+const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID
 
 
 ReactDOM.render(
-    <BrowserRouter>
-        <Route exact path="/" component={Home}></Route>
-        <Route exact path="/allBlogs" component={AllBlogs}></Route>
-        <Route exact path="/newBlog" component={NewBlog}></Route>
-        <Route exact path="/login" component={Login}></Route>
-        <Route exact path="/signup" component={Signup}></Route>
-        <Route path="/blog/:blogid" component={Blog}></Route>
-    </BrowserRouter>,
+    <Auth0Provider
+        domain={domain}
+        clientId={clientId}
+        redirectUri={window.location.origin}
+    >
+        <App/>
+    </Auth0Provider>,
     document.getElementById('root')
 );

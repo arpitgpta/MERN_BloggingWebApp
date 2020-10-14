@@ -10,6 +10,36 @@ body {
 }
 /* Landing page */
 
+/* Header */
+.header{
+  height: 120px;
+  background-color : #EFE9CC ;
+  box-shadow: 1px 1px 10px 1px rgb(158, 100, 100); 
+}
+
+.headingName{
+  float: left;
+  font-size: 3rem;
+  margin: 15px 0 0 100px;
+}
+
+.headingLinks{
+  font-size: 1.3rem;
+  float: right;
+  margin: 45px 90px 0 0;
+}
+
+.headingLinks a{
+  margin-right: 50px;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.459);
+}
+.headingLinks a:hover{
+  position: relative;
+  bottom: 3px;
+  color: rgba(0, 0, 0, 0.52);
+}
+
 /* Landing poster */
 .landingDiv {
   width: 1730px;
@@ -29,7 +59,7 @@ body {
   width: 100%;
 }
 
-.headingName {
+.landingHeadingName {
   position: absolute;
   top: 20px;
   left: 100px;
@@ -38,7 +68,7 @@ body {
   color: #efe375;
 }
 
-.headingLinks {
+.landingHeadingLinks {
   position: absolute;
   top: -10px;
   right: 100px;
@@ -47,18 +77,20 @@ body {
   color: #efe375;
 }
 
-.headingLinks a {
+.landingHeadingLinks a, .landingHeadingLinks div {
+  cursor: pointer;
+  display: inline;
   margin-left: 50px;
   color: #efe375;
   text-decoration: none;
 }
 
-.headingLinks a:hover {
+.landingHeadingLinks a:hover, .landingHeadingLinks div:hover {
   position: relative;
   bottom: 2px;
 }
 
-.headerQuote {
+.landingHeaderQuote {
   position: absolute;
   font-size: 1.95rem;
   color: #efe375a8;
@@ -68,7 +100,8 @@ body {
   transform: matrix(0.86, -0.55, 0.5, 0.85, 0, 0);
 }
 
-.headerQuote a {
+.landingHeaderQuote div {
+  display: inline;
   color: #efe375;
   background-color: #0d1f03;
   border: 2px solid #080e05;
@@ -76,7 +109,7 @@ body {
   border-radius: 15px;
 }
 
-.headerQuote a:hover {
+.landingHeaderQuote div:hover {
   cursor: pointer;
   text-decoration: none;
   color: #efe375dc;
@@ -132,7 +165,7 @@ body {
   width: 100%;
   height: 1050px;
 
-  background: conic-gradient(
+  /* background: conic-gradient(
       from 180deg at 50% 60%,
       #3a695255 -25.86deg,
       #695f3a67 16.88deg,
@@ -143,7 +176,7 @@ body {
       #3a6952b6 334.14deg,
       #695f3a6e 376.88deg
     ),
-    #f6e1bf5e;
+    #f6e1bf5e; */
   border-radius: 0px;
 }
 
@@ -264,7 +297,7 @@ body {
 .popularAuthorContent {
   position: relative;
   left: 250px;
-  padding: 100px 0% 70px 0%;
+  padding: 150px 0% 60px 0%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -273,7 +306,7 @@ body {
 .authorThumbnail {
   background-color: rgb(207, 100, 100);
   height: 250px;
-  width: 250px;
+  width: 225px;
   display: inline-block;
   position: relative;
   margin-left: 100px;
@@ -307,8 +340,19 @@ body {
 
 /* Blog Page */
 
-.blogPageData{
-  margin: auto 30%;
+.blogPage{
+  margin: 50px 30%;
+}
+
+.blogPageBody{
+  font-family: 'Nunito', sans-serif;
+  text-align: justify;
+}
+
+.blogInfo{
+  position: fixed;
+  top: 400px;
+  left: 100px;
 }
 
 /* Footer */

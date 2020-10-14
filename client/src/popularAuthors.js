@@ -6,7 +6,7 @@ function PopularAuthors(){
     return(
         <div className='popularAuthors'>
             <div className='popularAuthorsHeading'>
-                Celibrity Authors
+                Celibrity Authors <span role='img' aria-label='bookey'>🎉🎉</span>
             </div>
             <div className="popularAuthorContent">
                 <AuthorThumbnail/>

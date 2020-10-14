@@ -37,18 +37,18 @@ class Home extends React.Component {
     constructor() {
         super()
         var demoBlog = {
-            _id : '',
+            _id: '',
             title: 'loading....',
             author: 'loading....',
             authorId: '',
             body: 'loading....',
             likes: 0,
             dislikes: 0,
-            addedOn: '' 
+            addedOn: ''
         }
         this.state = {
             youMayLike: ".....loading",
-            trendingBlogs: [demoBlog,demoBlog,demoBlog,demoBlog,demoBlog,demoBlog,demoBlog,demoBlog],
+            trendingBlogs: [demoBlog, demoBlog, demoBlog, demoBlog, demoBlog, demoBlog, demoBlog, demoBlog],
             popularAuthors: ".....loading",
             trendingTopics: ".....loading",
             allPosts: ".....loading",
@@ -62,10 +62,10 @@ class Home extends React.Component {
     render() {
         return (
             <div className="landingPage">
-                <LandingHeader/>
-                <PopularTopics topics={this.state.trendingTopics}/>
-                <PopularBlogs blogs={this.state.trendingBlogs}/>
-                <PopularAuthors authors={this.state.popularAuthors}/>
+                <LandingHeader history={this.props.history}/>
+                <PopularTopics topics={this.state.trendingTopics} history={this.props.history}/>
+                <PopularBlogs blogs={this.state.trendingBlogs} history={this.props.history}/>
+                <PopularAuthors authors={this.state.popularAuthors} history={this.props.history}/>
                 <Footer />
             </div>
         )

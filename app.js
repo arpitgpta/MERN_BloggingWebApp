@@ -20,7 +20,6 @@ app.get('/allBlogs', (req, res) => {
 })
 
 app.get('/trendingTopics', (req, res) => {
-    console.log('trendingTopics');
     var trendingTopics = {
         topics: ['Science', 'IoT', 'Maths', 'Jossa', 'CSS', 'Cloud Computing', 'Hacktober', 'NIT Patna', 'Lucknow : The royal city', 'Novels', 'Robotics', 'ES6']
     }
@@ -42,7 +41,6 @@ app.get('/trendingBlogs', (req, res) => {
 
 
 app.get('/popularAuthors', (req, res) => {
-    console.log('popularAuthors');
     res.send('json of popularAutors')
 })
 
@@ -61,22 +59,20 @@ app.get('/getBlog/:blogid', (req, res) => {
 })
 
 
+// app.post('/newBlog', (req, res) => {
+//     const blog = new Blog({
+//         _id: new mongoose.Types.ObjectId(),
+//         title: req.body.title,
+//         author: 'Aman Akshar',
+//         authorId: '5f8404abc7881253c872c0e0',
+//         body: req.body.body
+//     })
+//     blog.save().then(result => {
+//         res.status(200).json(result)
+//     })
+//         .catch(err => console.log(err))
 
-
-app.post('/newBlog', (req, res) => {
-    const blog = new Blog({
-        _id: new mongoose.Types.ObjectId(),
-        title: req.body.title,
-        author: 'Aman Akshar',
-        authorId: '5f8404abc7881253c872c0e0',
-        body: req.body.body
-    })
-    blog.save().then(result => {
-        res.status(200).json(result)
-    })
-        .catch(err => console.log(err))
-
-})
+// })
 
 
 

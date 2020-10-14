@@ -6,7 +6,12 @@ import React from "react";
 function Header() {
     return (
         <div className="header">
-            this is header <br/>
+            <div className="headingName">Contentwise</div>
+            <div className='headingLinks'>
+                <a href="/">Home</a>
+                <a href="/allBlogs">All Blogs</a>
+                <a href="/login">Login</a>
+            </div>
         </div>
     );
 }
