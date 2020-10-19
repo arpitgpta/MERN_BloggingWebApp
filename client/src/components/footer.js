@@ -1,6 +1,8 @@
 import React from 'react'
 
-
+/**
+ * footer for all pages
+ */
 function Footer() {
     return (
         <div>

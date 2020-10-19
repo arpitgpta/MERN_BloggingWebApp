@@ -1,5 +1,9 @@
 import React from 'react'
 
+
+/**
+ * Thumbs up symbol
+ */
 function Thumsup() {
     return (
         <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-hand-thumbs-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

@@ -4,11 +4,36 @@ import axios from 'axios'
 import Header from './header'
 import Footer from './footer'
 
+// indivisual page for ever blog with expanded content 
+
+
+// TODO: add like and dislike buttons and there backend logic 
+
 
 class Blog extends React.Component {
 
+    constructor(props) {
+        super(props)
+        this.state = { // initilize dummy states
+        
+            about: props.match.params.blogid,
+            title: 'Loading.....',
+            body: '',
+            addedOn: '', 
+            author: '', 
+            likes: 0,
+            dislikes: 0
+        }
+    }
+
+    /**
+     * function to fetch data from server
+     */
     loadData = () => {
-        axios.get('/getBlog/' + this.state.about).then((x) => {
+
+        axios.get('/getBlog/' + this.state.about).then((x) => { // here we are making proxy request 
+                                                                // to another url i.e. server's url
+
             let addedOn = x.data.addedOn
             let y = +(addedOn.substr(0, 4))
             let m = +(addedOn.substr(5,2))
@@ -17,9 +42,7 @@ class Blog extends React.Component {
             let options = {weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'}
             let day = (date.toLocaleDateString('en-us', options))
 
-
-            console.log(x.data.likes);
-            this.setState({
+            this.setState({ // update state with orignal values
                 title: x.data.title,
                 body: x.data.body,
                 addedOn: day,
@@ -30,26 +53,18 @@ class Blog extends React.Component {
         })
     }
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            about: props.match.params.blogid,
-            title: 'Loading.....',
-            body: '',
-            addedOn: '', 
-            author: '', 
-            likes: 0,
-            dislikes: 0
-        }
-    }
     componentDidMount() {
         this.loadData()
-        console.log(this.state.addedon);
     }
+
+
     render() {
         return (
             <>
-                <Header history={this.props.history}/>
+                <Header history={this.props.history}/> 
+                                                           {/* we need to send history property so that we can 
+                                                           redirect from chied compont too  else we can do this
+                                                           from componts in direct child fo Router tag only*/}
                 <div className="blogPage">
                     <h1>{this.state.title}</h1>
                     <p>{this.state.addedOn}</p>

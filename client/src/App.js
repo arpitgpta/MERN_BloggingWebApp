@@ -7,7 +7,9 @@ import NewBlog from './newBlog.js'
 import Blog from './components/blogPage.js'
 import AllBlogs from './allBlogs.js'
 
-
+/**
+ * redirects according to requested path in url
+ */
 function App() {
     return (
         <BrowserRouter>

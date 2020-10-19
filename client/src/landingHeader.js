@@ -1,14 +1,29 @@
 import React from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
 
+
+/**
+ * 
+ * @param {props from parents} props 
+ * Landing page
+ */
 function LandingHeader(props) {
     const { isAuthenticated, loginWithPopup, logout } = useAuth0()
     return (
+
+
         <div className='landingDiv'>
+            
+            {/* Pic */}
             <div className="landingHeader">
                 <img src='/images/landingBG.png' alt='background_pic' />
             </div>
+
+            {/* Site's name */}
             <div className="landingHeadingName">ContentWise</div>
+            
+            
+            {/* links */}
             <div className='landingHeadingLinks'>
                 <a href="/">Home</a>
                 <div
@@ -23,9 +38,8 @@ function LandingHeader(props) {
                 </div>
                 <div
                     onClick={() => {
-                        if (isAuthenticated) {
+                        if (isAuthenticated)
                             logout()
-                        }
                         else
                             loginWithPopup()
                     }}
@@ -33,6 +47,10 @@ function LandingHeader(props) {
                     {isAuthenticated ? 'Logout' : 'Login'}
                 </div>
             </div>
+            
+            
+            
+            {/* quote */}
             <div className='landingHeaderQuote'>
                 If you are being asked for someting more than once, <div
                     onClick={() => {

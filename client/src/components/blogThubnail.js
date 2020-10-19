@@ -5,6 +5,11 @@ import ThumsUp from './thumsup'
 import ThumsDown from './thumsdown'
 
 
+/**
+ * 
+ * @param {properties from parent componet} props 
+ * thumbnail for blog in landing page
+ */
 function BlogTH(props) {
     var b = props.blogData.body.substr(0, 195) + '......';
     var addr = '/blog/'+props.blogData._id
@@ -14,7 +19,15 @@ function BlogTH(props) {
         <div 
             className='blogThumbnail' 
             id={props.id} 
-            name={props.blogData._id} 
+            name={props.blogData._id}
+            
+            
+            /**
+             * 
+             * on click if loged in then sends to page of that blog
+             * else pop up to login  
+             *  
+            */ 
             onClick={() => {
                 console.log(user);
                 if(isAuthenticated)

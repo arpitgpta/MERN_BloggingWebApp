@@ -6,7 +6,22 @@ import PopularAuthors from './popularAuthors'
 import Footer from './components/footer'
 import axios from 'axios'
 
+
+/**
+ * landing page of the webapp
+ * contians following componets:
+ *      1. landing poster
+ *      2. popular topics
+ *      3. popular blogs
+ *      4. popular authors
+ *      5. footer
+ */
 class Home extends React.Component {
+
+    /**
+     * function to load data from server
+     * here we are using axios to send request to anoter proxy url
+     */
     loadData = () => {
         axios.get('/trendingTopics').then((x) => {
             this.setState({
@@ -28,8 +43,12 @@ class Home extends React.Component {
 
     }
 
+    /**
+     * initilizing dummy states
+     */
     constructor() {
         super()
+
         var demoBlog = {
             _id: '',
             title: 'loading....',
@@ -40,6 +59,7 @@ class Home extends React.Component {
             dislikes: 0,
             addedOn: ''
         }
+        
         this.state = {
             youMayLike: ".....loading",
             trendingBlogs: [demoBlog, demoBlog, demoBlog, demoBlog, demoBlog, demoBlog, demoBlog, demoBlog],

@@ -1,6 +1,12 @@
 import React from "react";
 import { useAuth0 } from '@auth0/auth0-react'
 
+
+/**
+ * 
+ * @param {propeties from parent} props 
+ * Header for all pages except landing page
+ */
 function Header(props) {
     const { isAuthenticated, loginWithPopup, logout } = useAuth0()
     return (

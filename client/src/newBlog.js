@@ -4,15 +4,24 @@ import { useAuth0 } from '@auth0/auth0-react'
 import Header from './components/header'
 import Footer from './components/footer'
 import TopicThumnnail from './components/topicThumbnailSmall'
-// function handelChangeTitle(){
-//     console.log('called');
-// }
 
+
+/**
+ * 
+ * @param {props form parent componet} props 
+ * 
+ * TODO: 
+ *      1. we have to add bootstrap in form
+ *      2. we have to make a input field in which we can type topic's name
+ *      3. a button which on click adds that topic in tags array and makes that input field clear
+ *      4. print all tags in array on screent in read only mode (we can give a button to delete that too)
+ */
 function Blog(props) {
     const { isAuthenticated, user } = useAuth0()
+    
     const [title, setTitle] = useState('')
     const [body, setBody] = useState('')
-    const [tags, setTags] = useState(['abd', 'sdwe'])
+    const [tags, setTags] = useState([])
     const [author, setAuthor] = useState('')
     const [authorID, setAuthorID] = useState('')
     const [newTag, setNewTag] = useState('')
