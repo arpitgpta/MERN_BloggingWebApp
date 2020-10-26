@@ -18,17 +18,17 @@ import TopicThumnnail from './components/topicThumbnailSmall'
  */
 function Blog(props) {
     const { isAuthenticated, user } = useAuth0()
-    
+
     const [title, setTitle] = useState('')
     const [body, setBody] = useState('')
     const [tags, setTags] = useState([])
     const [author, setAuthor] = useState('')
     const [authorID, setAuthorID] = useState('')
-    const [newTag, setNewTag] = useState('')
-    let topicss = []
+
+    let topics = []
     useEffect(() => {
-        topicss = tags.map((i) => {
-            return <TopicThumnnail topic={i}/>
+        topics = tags.map((i) => {
+            return <TopicThumnnail topic={i} />
         })
         if (isAuthenticated) {
             setAuthor(user.nickname)
@@ -39,27 +39,30 @@ function Blog(props) {
     function handelChangeTitle(event) {
         setTitle(event.target.value)
     }
-
     function handelChangeBody(event) {
         setBody(event.target.value)
     }
 
-    function handelChangeNewTag(event){
-        setNewTag(event.target.value)
+
+    function handelSubmit(event) {
+        console.log(event.screenX);
+        console.log('called');
+        event.preventDefault();
     }
 
-
-    function addNewTag(){
-        let newTagList = [...tags]
-        newTagList.push(document.getElementById('newTagName').value)
-        setTags(newTagList)
+    function addTag(e) {
+        setTags([...tags, e.target.value])
+        e.target.value = ''
+        setTimeout(()=>{console.log(tags);},2000)
+        
     }
 
     return (
         <div>
             <Header history={props.history} />
+
             <h1>New Blog</h1>
-            <form id='newBlogForm' action='/createNewBlog' method='Post'>
+            <form id='newBlogForm' action='/createNewBlog' method='Post' onSubmit={e => handelSubmit(e)}>
                 <input type='text' name='author' value={author} readOnly hidden />
                 <input type='text' name='authorID' value={authorID} readOnly hidden />
 
@@ -72,8 +75,15 @@ function Blog(props) {
                     Body:
                         <textarea name='body' value={body} onChange={handelChangeBody}></textarea>
                 </label>
+
+                <br />
+                {topics}
+                <br />
+
+                <br />
                 <button type='submit'>Add blog</button>
             </form>
+            <input onKeyUp={e => e.key === 'Enter' ? addTag(e) : null} />
             <Footer />
         </div>
     )
