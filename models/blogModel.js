@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const BlogSchema = mongoose.Schema({
+    
+    _id:{
+        type: ObjectId,
+        required: true,
+    },
     title: {
         type: String,
         required: true
@@ -11,9 +16,8 @@ const BlogSchema = mongoose.Schema({
         required: true
     },
     authorId: {
-        type: ObjectId,
+        type: String,
         required: true,
-        ref: 'User'
     },
     body: {
         type: String,
@@ -22,22 +26,18 @@ const BlogSchema = mongoose.Schema({
     addedOn: {
         type: Date,
         default: Date.now,
-        required: true
     },
     likes:{
         type: Number,
         default: 0,
-        required: true
     },
     dislikes:{
         type: Number,
         default: 0,
-        required: true
     }, 
     tags:{
         type: Array,
         default: [],
-        required: true
     }
 });
 

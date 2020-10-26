@@ -1,27 +1,37 @@
 import React from 'react'
-import Header from './components/header'
+import LandingHeader from './landingHeader'
+import PopularTopics from './popularTopics'
+import PopularBlogs from './popularBlogs'
+import PopularAuthors from './popularAuthors'
 import Footer from './components/footer'
 import axios from 'axios'
 
-class Home extends React.Component {
-    loadData = () => {
-        axios.get('/youMayLike').then((x) => {
-            console.log(x.data);
-            this.setState({
-                youMayLike: x.data
-            })
-        })
 
+/**
+ * landing page of the webapp
+ * contians following componets:
+ *      1. landing poster
+ *      2. popular topics
+ *      3. popular blogs
+ *      4. popular authors
+ *      5. footer
+ */
+class Home extends React.Component {
+
+    /**
+     * function to load data from server
+     * here we are using axios to send request to anoter proxy url
+     */
+    loadData = () => {
         axios.get('/trendingTopics').then((x) => {
-            console.log(x.data);
             this.setState({
                 trendingTopics: x.data
             })
         })
 
-        axios.get('/trendingPosts').then((x) => {
+        axios.get('/trendingBlogs').then((x) => {
             this.setState({
-                trendingPosts: x.data
+                trendingBlogs: x.data
             })
         })
 
@@ -31,18 +41,28 @@ class Home extends React.Component {
             })
         })
 
-        axios.get('/allPosts').then((x) => {
-            this.setState({
-                allPosts: x.data
-            })
-        })
     }
 
+    /**
+     * initilizing dummy states
+     */
     constructor() {
         super()
+
+        var demoBlog = {
+            _id: '',
+            title: 'loading....',
+            author: 'loading....',
+            authorId: '',
+            body: 'loading....',
+            likes: 0,
+            dislikes: 0,
+            addedOn: ''
+        }
+        
         this.state = {
             youMayLike: ".....loading",
-            trendingPosts: ".....loading",
+            trendingBlogs: [demoBlog, demoBlog, demoBlog, demoBlog, demoBlog, demoBlog, demoBlog, demoBlog],
             popularAuthors: ".....loading",
             trendingTopics: ".....loading",
             allPosts: ".....loading",
@@ -51,16 +71,15 @@ class Home extends React.Component {
 
     componentDidMount() {
         this.loadData()
-
     }
 
     render() {
         return (
             <div className="landingPage">
-                <img className="firstSection" src="/images/firstSection_bg.jpg"/>
-                <div >
-                    
-                </div>
+                <LandingHeader history={this.props.history}/>
+                <PopularTopics topics={this.state.trendingTopics} history={this.props.history}/>
+                <PopularBlogs blogs={this.state.trendingBlogs} history={this.props.history}/>
+                <PopularAuthors authors={this.state.popularAuthors} history={this.props.history}/>
                 <Footer />
             </div>
         )
