@@ -52,7 +52,7 @@ function LandingHeader(props) {
             
             {/* quote */}
             <div className='landingHeaderQuote'>
-                If you are being asked for someting more than once, <div
+                If you are being asked for something more than once, <div
                     onClick={() => {
                         if (isAuthenticated)
                             props.history.push('/newBlog')

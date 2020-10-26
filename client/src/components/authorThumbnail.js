@@ -1,11 +1,18 @@
 import React from 'react'
 
-
 /**
  * component for every author in landing page's popular author section
- * TODO: fetch oroginal data and populate with that
+ * TODO: fetch original data and populate with that
  */
+ 
+
+
 function AuthorThumbnail(){
+
+
+
+
+    
     return(
         <div className='authorThumbnail'>
             <div className="authorThumbnailPic"></div>

@@ -5,6 +5,7 @@ import { Route, BrowserRouter } from 'react-router-dom'
 import Home from './home.js'
 import NewBlog from './newBlog.js'
 import Blog from './components/blogPage.js'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import AllBlogs from './allBlogs.js'
 
 /**

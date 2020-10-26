@@ -1,7 +1,7 @@
 import React from 'react'
 
 /**
- * footer for all pages
+ * footer for all pages in Mern-Stack.
  */
 function Footer() {
     return (
