@@ -3,7 +3,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 
 import Header from './components/header'
 import Footer from './components/footer'
-import TopicThumnnail from './components/topicThumbnailSmall'
+// import TopicThumnnail from './components/topicThumbnailSmall'
 
 
 /**
@@ -27,13 +27,13 @@ function Blog(props) {
     const tagString = useRef()
 
     useEffect(() => {
-      tagString.current = JSON.stringify(tags)
-      console.log(tagString.current);
-      
-      if(isAuthenticated)
-      {
-        setAuthor(user.name)
-      }
+        tagString.current = JSON.stringify({tags:tags})
+        console.log(tagString.current);
+
+        if (isAuthenticated) {
+            setAuthor(user.nickname)
+            setAuthorID(user.sub)
+        }
     }, [tags, isAuthenticated])
 
     function handelChangeTitle(event) {
@@ -44,11 +44,10 @@ function Blog(props) {
     }
 
     function addTag(e) {
-      if(e.target.value !== '')
-      {
-        setTags([...tags, e.target.value])
-        e.target.value = ''
-      }
+        if (e.target.value !== '') {
+            setTags([...tags, e.target.value])
+            e.target.value = ''
+        }
     }
 
     return (
@@ -71,10 +70,10 @@ function Blog(props) {
                 </label>
 
                 <br />
-                <input name='tagString' value={tagString.current} hidden/>
+                <input name='tagString' value={tagString.current} hidden />
                 <br />
                 {tags}
-                <br/>
+                <br />
                 <button type='submit'>Add blog</button>
             </form>
             <input onKeyUp={e => e.key === 'Enter' ? addTag(e) : null} />

@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 const UserSchema = mongoose.Schema({
     _id :{
-        type: mongoose.Schema.Types.ObjectId
+        type: String,
+        required: true
     },
     name: {
         type: String,
@@ -13,7 +14,12 @@ const UserSchema = mongoose.Schema({
         default: [],
         required: false
     },
-    intrestedTags: {
+    likedBlogs : {
+        type: Array,
+        default: [],
+        required: false
+    },
+    disLikedBlogs: {
         type: Array,
         default: [],
         required: false
