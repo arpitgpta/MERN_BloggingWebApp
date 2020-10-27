@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
 
 import Header from './components/header'
@@ -24,17 +24,17 @@ function Blog(props) {
     const [tags, setTags] = useState([])
     const [author, setAuthor] = useState('')
     const [authorID, setAuthorID] = useState('')
+    const tagString = useRef()
 
-    let topics = []
     useEffect(() => {
-        topics = tags.map((i) => {
-            return <TopicThumnnail topic={i} />
-        })
-        if (isAuthenticated) {
-            setAuthor(user.nickname)
-            setAuthorID(user.sub)
-        }
-    })
+      tagString.current = JSON.stringify(tags)
+      console.log(tagString.current);
+      
+      if(isAuthenticated)
+      {
+        setAuthor(user.name)
+      }
+    }, [tags, isAuthenticated])
 
     function handelChangeTitle(event) {
         setTitle(event.target.value)
@@ -43,18 +43,12 @@ function Blog(props) {
         setBody(event.target.value)
     }
 
-
-    function handelSubmit(event) {
-        console.log(event.screenX);
-        console.log('called');
-        event.preventDefault();
-    }
-
     function addTag(e) {
+      if(e.target.value !== '')
+      {
         setTags([...tags, e.target.value])
         e.target.value = ''
-        setTimeout(()=>{console.log(tags);},2000)
-        
+      }
     }
 
     return (
@@ -62,7 +56,7 @@ function Blog(props) {
             <Header history={props.history} />
 
             <h1>New Blog</h1>
-            <form id='newBlogForm' action='/createNewBlog' method='Post' onSubmit={e => handelSubmit(e)}>
+            <form id='newBlogForm' action='/createNewBlog' method='Post'>
                 <input type='text' name='author' value={author} readOnly hidden />
                 <input type='text' name='authorID' value={authorID} readOnly hidden />
 
@@ -77,10 +71,10 @@ function Blog(props) {
                 </label>
 
                 <br />
-                {topics}
+                <input name='tagString' value={tagString.current} hidden/>
                 <br />
-
-                <br />
+                {tags}
+                <br/>
                 <button type='submit'>Add blog</button>
             </form>
             <input onKeyUp={e => e.key === 'Enter' ? addTag(e) : null} />

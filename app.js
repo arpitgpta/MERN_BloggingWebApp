@@ -82,7 +82,7 @@ app.post('/createNewBlog', (req, res) => {
         authorId: req.body.authorID,
         body: req.body.body
     })
-    console.log(blog);
+    console.log(req.body.tagString);
     res.redirect('/newBlog')
    
     // TODO: redirect to newly created blog's page
