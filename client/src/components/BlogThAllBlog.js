@@ -27,7 +27,7 @@ function BlogTH(props) {
             name={props.blogData._id}
             
             /**
-             * fucntion to handel login if not loged in 
+             * fucntion to handel login if not logged in 
              * else to redirect to that blog's page 
              *  
             */ 
@@ -45,6 +45,7 @@ function BlogTH(props) {
             <p>By: {props.blogData.author}</p>
             <ThumsUp /> {props.blogData.likes}
             <br />
+            
             <ThumsDown /> {props.blogData.dislikes}
             <hr />
             <p>{b}</p>

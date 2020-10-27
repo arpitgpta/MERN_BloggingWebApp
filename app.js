@@ -4,8 +4,8 @@ const mongoose = require('mongoose')
 const Blog = require('./models/blogModel')
 
 
-// connect to mongodb
-mongoose.connect('mongodb+srv://arpitgpta:arpitgpta@cluster0.ahl3y.mongodb.net/ContentWise?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb+srv://saketvajpai:saketvajpai@cluster0.ahl3y.mongodb.net/ContentWise?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
+
 
 const app = express()
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -75,14 +75,25 @@ app.get('/getBlog/:blogid', (req, res) => {
         3. for every tag in tag list do same thing as for author
 */
 app.post('/createNewBlog', (req, res) => {
+    console.log('1. done');
     const blog = new Blog({
         _id: new mongoose.Types.ObjectId(),
         title: req.body.title,
         author: req.body.author,
         authorId: req.body.authorID,
-        body: req.body.body
+        body: req.body.body,
+        tags: req.body.tags 
     })
-    console.log(JSON.parse(req.body.tagString));
+
+    console.log('2. done ');
+    blog.save().then(result => {
+        console.log('3. done');
+        res.redirect('/')
+    })
+        .catch(err => console.log(err))
+
+    console.log(blog);
+
     res.redirect('/newBlog')
    
     // TODO: redirect to newly created blog's page
@@ -104,6 +115,7 @@ app.post('/createNewBlog', (req, res) => {
             console.log(err)
             res.status(500).json(err)
         })
+// >>>>>>> ad0450462ebd378a0ed8e2042bef780dfb408981
 })
 
 const PORT = 5000
