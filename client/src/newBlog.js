@@ -4,7 +4,6 @@ import { Form, FormGroup, Label, Input, Button } from 'reactstrap'
 
 import Header from './components/header'
 import Footer from './components/footer'
-import TagIcon from './components/tagIcon'
 
 /**
  * 
@@ -26,9 +25,19 @@ function Blog(props) {
     const [authorID, setAuthorID] = useState('')
     const [tagString, setTagString] = useState('')
     const [tagsArray, setTagsArray] = useState([])
+    
+    const removeTags = indexToRemove => {
+		setTags([...tags.filter((_, index) => index !== indexToRemove)]);
+    };
+    
     useEffect(() => {
         setTagString(JSON.stringify({ tags: tags }))
-        setTagsArray(tags.map((tag, index) => <TagIcon data={tag} key={index} />))
+        setTagsArray(tags.map((tag, index) => (
+            <span key={index} className="tag">
+                <span className='tag-title'>{tag}</span>
+                <span className='tag-close-icon' onClick={() => removeTags(index)}>x</span>
+            </span>
+        )))
         if (isAuthenticated) {
             setAuthor(user.nickname)
             setAuthorID(user.sub)
@@ -77,7 +86,7 @@ function Blog(props) {
                 <div className='tag-field-container'>
                     <Label>Tags:</Label>
                     <div className='tags-field'>
-                        {tagsArray}
+                        <span className='display-tags'> {tagsArray} </span>
                             <input placeholder={'Press Enter to add tag'} onKeyUp={e => e.key === 'Enter' ? addTag(e) : null} />
                         
                     </div>

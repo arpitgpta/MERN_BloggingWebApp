@@ -3,6 +3,10 @@ import axios from 'axios'
 
 import Header from './header'
 import Footer from './footer'
+import ThumsUp from './thumsup'
+import ThumsDown from './thumsdown'
+
+
 
 // indivisual page for ever blog with expanded content 
 
@@ -71,7 +75,13 @@ class Blog extends React.Component {
                     <p className="blogPageBody">{this.state.body}</p>
                 </div>
                 <div className="blogInfo">
-                    <p>By: {this.state.author} <br/> {this.state.likes} <br/> {this.state.dislikes}</p>
+                    <p>
+                        By: {this.state.author} 
+                        <br/> 
+                        <ThumsUp/> {this.state.likes} 
+                        <br/> 
+                        <ThumsDown/> {this.state.dislikes}
+                    </p>
                 </div>
                 <Footer />
             </>

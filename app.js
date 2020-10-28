@@ -21,7 +21,7 @@ app.get('/allBlogs', (req, res) => {
 
 
 
-// still hardcoded we have to write logic to send trending topics only
+// TODO: still hardcoded we have to write logic to send trending topics only
 app.get('/trendingTopics', (req, res) => {
     var trendingTopics = {
         topics: ['Science', 'IoT', 'Maths', 'Jossa', 'CSS', 'Cloud Computing', 'Hacktober', 'NIT Patna', 'Lucknow : The royal city', 'Novels', 'Robotics', 'ES6']
@@ -87,45 +87,44 @@ app.post('/createNewBlog', (req, res) => {
         body: req.body.body,
         tags: JSON.parse(req.body.tagString).tags
     })
-
+    console.log(blog);
     User.find({_id: blog.authorId})
     .exec()
     .then(author => {
         if(author.length === 1)
         {
-            // const prevUser = author[0]
-            // prevUser.blogs.push(blog._id)
-            // User.updateOne({_id: prevUser._id}, {blogs: prevUser.blogs}, () =>{
-            //     console.log('author updated');
-            // })
+            const prevUser = author[0]
+            prevUser.blogs.push(blog._id)
+            User.updateOne({_id: prevUser._id}, {blogs: prevUser.blogs}, () =>{
+                console.log('author updated');
+            })
         }
         else
         {
-            // const user = new User({
-            //     _id : blog.authorId,
-            //     name: blog.author,
-            //     blogs : [blog._id]
-            // })
-            // user.save()
-            //     .then(result => {
-            //         console.log('user saved');
-            //         console.log(result);
-            //     })
-            //     .catch(err => console.log(err))
+            const user = new User({
+                _id : blog.authorId,
+                name: blog.author,
+                blogs : [blog._id]
+            })
+            user.save()
+                .then(result => {
+                    console.log('user saved');
+                    console.log(result);
+                })
+                .catch(err => console.log(err))
         }
     })
 
-    // blog.save().then(result => {
-    //     console.log('blog saved');
-    //     // res.redirect(`/getBlog/${blog._id}`)
-    //     res.redirect('/newBlog')
-    // })
-    //     .catch(err => console.log(err))
+    blog.save().then(result => {
+        console.log('blog saved');
+        res.redirect(`/blog/${blog._id}`)
+    })
+        .catch(err => console.log(err))
 
 
 
     // TODO: redirect to newly created blog's page 
-    res.redirect('/newBlog') //----------------- will be removed, just for now
+    // res.redirect('/newBlog') //----------------- will be removed, just for now
     // for redirection
 
 })
@@ -134,3 +133,9 @@ const PORT = 5000
 app.listen(PORT, () => {
     console.log('server is ready at ' + PORT);
 })
+
+
+
+
+// http://localhost:3000/getBlog/5f992d447707e22977c2337d
+// http://localhost:3000/blog/5f992d447707e22977c2337d
