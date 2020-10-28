@@ -5,10 +5,6 @@ import { Form, FormGroup, Label, Input, Button } from 'reactstrap'
 import Header from './components/header'
 import Footer from './components/footer'
 
-// import Example from './components/newblogform'
-// import InputSkill from './components/InputSkill'
-
-
 /**
  * 
  * @param {props form parent componet} props 
@@ -19,9 +15,9 @@ import Footer from './components/footer'
  *      3. a button which on click adds that topic in tags array and makes that input field clear
  *      4. print all tags in array on screent in read only mode (we can give a button to delete that too)
  */
-
 function Blog(props) {
     const { isAuthenticated, user } = useAuth0()
+
     const [title, setTitle] = useState('')
     const [body, setBody] = useState('')
     const [tags, setTags] = useState([])
@@ -29,15 +25,12 @@ function Blog(props) {
     const [authorID, setAuthorID] = useState('')
     const [tagString, setTagString] = useState('')
     const [tagsArray, setTagsArray] = useState([])
-
+    
     const removeTags = indexToRemove => {
-        setTags([...tags.filter((_, index) => index !== indexToRemove)]);
+		setTags([...tags.filter((_, index) => index !== indexToRemove)]);
     };
-
-
+    
     useEffect(() => {
-        tagString.current = JSON.stringify({ tags: tags })
-        console.log(tagString.current);
         setTagString(JSON.stringify({ tags: tags }))
         setTagsArray(tags.map((tag, index) => (
             <span key={index} className="tag">
@@ -45,7 +38,6 @@ function Blog(props) {
                 <span className='tag-close-icon' onClick={() => removeTags(index)}>x</span>
             </span>
         )))
-
         if (isAuthenticated) {
             setAuthor(user.nickname)
             setAuthorID(user.sub)
@@ -66,7 +58,6 @@ function Blog(props) {
             e.target.value = ''
         }
     }
-
 
     return (
         <>
@@ -96,8 +87,8 @@ function Blog(props) {
                     <Label>Tags:</Label>
                     <div className='tags-field'>
                         <span className='display-tags'> {tagsArray} </span>
-                        <input placeholder={'Press Enter to add tag'} onKeyUp={e => e.key === 'Enter' ? addTag(e) : null} />
-
+                            <input placeholder={'Press Enter to add tag'} onKeyUp={e => e.key === 'Enter' ? addTag(e) : null} />
+                        
                     </div>
                 </div>
             </div>
@@ -107,6 +98,3 @@ function Blog(props) {
 }
 
 export default Blog
-
-
-

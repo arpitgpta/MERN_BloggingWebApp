@@ -5,8 +5,8 @@ const Blog = require('./models/blogModel')
 const User = require('./models/userModel')
 
 
-// connect to mongodb
-mongoose.connect('mongodb+srv://arpitgpta:arpitgpta@cluster0.ahl3y.mongodb.net/ContentWise?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb+srv://saketvajpai:saketvajpai@cluster0.ahl3y.mongodb.net/ContentWise?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
+
 
 const app = express()
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -88,38 +88,37 @@ app.post('/createNewBlog', (req, res) => {
         tags: JSON.parse(req.body.tagString).tags
     })
     console.log(blog);
-    User.find({_id: blog.authorId})
-    .exec()
-    .then(author => {
-        if(author.length === 1)
-        {
-            const prevUser = author[0]
-            prevUser.blogs.push(blog._id)
-            User.updateOne({_id: prevUser._id}, {blogs: prevUser.blogs}, () =>{
-                console.log('author updated');
-            })
-        }
-        else
-        {
-            const user = new User({
-                _id : blog.authorId,
-                name: blog.author,
-                blogs : [blog._id]
-            })
-            user.save()
-                .then(result => {
-                    console.log('user saved');
-                    console.log(result);
+    User.find({ _id: blog.authorId })
+        .exec()
+        .then(author => {
+            if (author.length === 1) {
+                const prevUser = author[0]
+                prevUser.blogs.push(blog._id)
+                User.updateOne({ _id: prevUser._id }, { blogs: prevUser.blogs }, () => {
+                    console.log('author updated');
                 })
-                .catch(err => console.log(err))
-        }
-    })
+            }
+            else {
+                const user = new User({
+                    _id: blog.authorId,
+                    name: blog.author,
+                    blogs: [blog._id]
+                })
+                user.save()
+                    .then(result => {
+                        console.log('user saved');
+                        console.log(result);
+                    })
+                    .catch(err => console.log(err))
+            }
+        })
 
     blog.save().then(result => {
         console.log('blog saved');
         res.redirect(`/blog/${blog._id}`)
+            .catch(err => console.log(err))
     })
-        .catch(err => console.log(err))
+
 
 
 

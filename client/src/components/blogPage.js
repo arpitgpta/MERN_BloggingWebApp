@@ -19,7 +19,6 @@ class Blog extends React.Component {
     constructor(props) {
         super(props)
         this.state = { // initilize dummy states
-        
             about: props.match.params.blogid,
             title: 'Loading.....',
             body: '',

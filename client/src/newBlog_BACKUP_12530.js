@@ -4,9 +4,22 @@ import { Form, FormGroup, Label, Input, Button } from 'reactstrap'
 
 import Header from './components/header'
 import Footer from './components/footer'
+import {
+  Container, Col, Form,
+  FormGroup, Label, Input,
+  Button,
+} from 'reactstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Header from './components/header'
+import Footer from './components/footer'
 
 // import Example from './components/newblogform'
 // import InputSkill from './components/InputSkill'
+import TopicThumnnail from './components/topicThumbnailSmall'
+import { ADDRCONFIG } from 'dns';
+import InputSkill from './components/InputSkill';
+import arr from './components/InputSkill';
+
 
 
 /**
@@ -22,6 +35,7 @@ import Footer from './components/footer'
 
 function Blog(props) {
     const { isAuthenticated, user } = useAuth0()
+
     const [title, setTitle] = useState('')
     const [body, setBody] = useState('')
     const [tags, setTags] = useState([])
@@ -29,15 +43,12 @@ function Blog(props) {
     const [authorID, setAuthorID] = useState('')
     const [tagString, setTagString] = useState('')
     const [tagsArray, setTagsArray] = useState([])
-
+    
     const removeTags = indexToRemove => {
-        setTags([...tags.filter((_, index) => index !== indexToRemove)]);
+		setTags([...tags.filter((_, index) => index !== indexToRemove)]);
     };
-
-
+    
     useEffect(() => {
-        tagString.current = JSON.stringify({ tags: tags })
-        console.log(tagString.current);
         setTagString(JSON.stringify({ tags: tags }))
         setTagsArray(tags.map((tag, index) => (
             <span key={index} className="tag">
@@ -45,7 +56,31 @@ function Blog(props) {
                 <span className='tag-close-icon' onClick={() => removeTags(index)}>x</span>
             </span>
         )))
+// <<<<<<< akg
+//     const tagString = useRef()
+// =======
+// <<<<<<< HEAD
+    const [newTag, setNewTag] = useState('')
+    let topicss = []
+    // let tags = []
+    useEffect(() => {
+        // topicss = tags.map((i) => {
+        //     return <TopicThumnnail topic={i}/>
+        // })
+// =======
+// >>>>>>> saki
 
+    useEffect(() => {
+// <<<<<<< akg
+        tagString.current = JSON.stringify({tags:tags})
+        console.log(tagString.current);
+
+// =======
+        topics = tags.map((i) => {
+            return <TopicThumnnail topic={i} />
+        })
+// >>>>>>> ad0450462ebd378a0ed8e2042bef780dfb408981
+// >>>>>>> saki
         if (isAuthenticated) {
             setAuthor(user.nickname)
             setAuthorID(user.sub)
@@ -58,16 +93,56 @@ function Blog(props) {
     }
     function handelChangeBody(event) {
         setBody(event.target.value)
+        setTags(arr)
     }
 
+// <<<<<<< akg
     function addTag(e) {
         if (e.target.value !== '') {
             setTags([...tags, e.target.value])
             e.target.value = ''
         }
+// =======
+// <<<<<<< HEAD
+    function handelChangeNewTag(event){
+        setNewTag(event.target.value)
+        // tag.push
+        // console.log(newTag)
+        tags.push(event.target.value)
+        // {tags}
+    }
+    
+
+    // Idhar kachara hai kyu ki alag alag method try kar raha tha array ko
+    // backend mai send karne ke liye
+
+    function addNewTag(){
+        // let newTagList = [...tags]
+        // {'saket'}
+        // newTagList.push(document.getElementById('newTagName').value)
+        // tags = arr
+        setTags(arr)
+        // tags.push(document.getElementById('newTagName').value)
+        // document.getElementById('newTagName').value = "" ;
+        // tag = newTagList
+        // {newTagList}
+        // console.log(newTagList)
+// =======
+
+    function handelSubmit(event) {
+        console.log(event.screenX);
+        console.log('called');
+        event.preventDefault();
     }
 
-
+    function addTag(e) {
+        setTags([...tags, e.target.value])
+        e.target.value = ''
+        setTimeout(()=>{console.log(tags);},2000)
+        
+// >>>>>>> ad0450462ebd378a0ed8e2042bef780dfb408981
+// >>>>>>> saki
+    }
     return (
         <>
             <Header history={props.history} />
@@ -96,8 +171,8 @@ function Blog(props) {
                     <Label>Tags:</Label>
                     <div className='tags-field'>
                         <span className='display-tags'> {tagsArray} </span>
-                        <input placeholder={'Press Enter to add tag'} onKeyUp={e => e.key === 'Enter' ? addTag(e) : null} />
-
+                            <input placeholder={'Press Enter to add tag'} onKeyUp={e => e.key === 'Enter' ? addTag(e) : null} />
+                        
                     </div>
                 </div>
             </div>
