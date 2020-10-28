@@ -88,8 +88,6 @@ app.post('/createNewBlog', (req, res) => {
         tags: JSON.parse(req.body.tagString).tags
     })
 
-    console.log(blog.tags);
-    console.log(blog);
     User.find({_id: blog.authorId})
     .exec()
     .then(author => {
