@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
+import { Form, FormGroup, Label, Input, Button } from 'reactstrap'
 
 import Header from './components/header'
 import Footer from './components/footer'
-// import TopicThumnnail from './components/topicThumbnailSmall'
-
+import TagIcon from './components/tagIcon'
 
 /**
  * 
@@ -24,16 +24,16 @@ function Blog(props) {
     const [tags, setTags] = useState([])
     const [author, setAuthor] = useState('')
     const [authorID, setAuthorID] = useState('')
-    const tagString = useRef()
-
+    const [tagString, setTagString] = useState('')
+    const [tagsArray, setTagsArray] = useState([])
     useEffect(() => {
-        tagString.current = JSON.stringify({tags:tags})
-        console.log(tagString.current);
-
+        setTagString(JSON.stringify({ tags: tags }))
+        setTagsArray(tags.map((tag, index) => <TagIcon data={tag} key={index} />))
         if (isAuthenticated) {
             setAuthor(user.nickname)
             setAuthorID(user.sub)
         }
+        // eslint-disable-next-line
     }, [tags, isAuthenticated])
 
     function handelChangeTitle(event) {
@@ -51,34 +51,40 @@ function Blog(props) {
     }
 
     return (
-        <div>
+        <>
             <Header history={props.history} />
+            <div className='new-blog'>
+                <h2>New Blog</h2>
+                <Form id='newBlogForm' action='/createNewBlog' method='Post'>
+                    <input type='text' name='author' value={author} readOnly hidden />
+                    <input type='text' name='authorID' value={authorID} readOnly hidden />
+                    <FormGroup>
+                        <Label>Title:</Label>
+                        <Input type='text' name='title' value={title} onChange={handelChangeTitle} autoComplete={'off'} />
+                    </FormGroup>
 
-            <h1>New Blog</h1>
-            <form id='newBlogForm' action='/createNewBlog' method='Post'>
-                <input type='text' name='author' value={author} readOnly hidden />
-                <input type='text' name='authorID' value={authorID} readOnly hidden />
+                    <FormGroup>
+                        <Label>Body:</Label>
+                        <Input type='textarea' rows={8} name='body' value={body} onChange={handelChangeBody} />
+                    </FormGroup>
 
-                <label>
-                    Title:
-                        <input type='text' name='title' value={title} onChange={handelChangeTitle} />
-                </label>
+                    <input name='tagString' value={tagString} readOnly hidden />
 
-                <label>
-                    Body:
-                        <textarea name='body' value={body} onChange={handelChangeBody}></textarea>
-                </label>
-
+                    <Button color='success' type='submit' className='submit-button'>Add blog</Button>
+                </Form>
                 <br />
-                <input name='tagString' value={tagString.current} hidden />
-                <br />
-                {tags}
-                <br />
-                <button type='submit'>Add blog</button>
-            </form>
-            <input onKeyUp={e => e.key === 'Enter' ? addTag(e) : null} />
+
+                <div className='tag-field-container'>
+                    <Label>Tags:</Label>
+                    <div className='tags-field'>
+                        {tagsArray}
+                            <input placeholder={'Press Enter to add tag'} onKeyUp={e => e.key === 'Enter' ? addTag(e) : null} />
+                        
+                    </div>
+                </div>
+            </div>
             <Footer />
-        </div>
+        </>
     )
 }
 
