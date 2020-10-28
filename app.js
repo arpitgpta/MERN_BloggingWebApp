@@ -91,6 +91,7 @@ app.post('/createNewBlog', (req, res) => {
     console.log(blog);
     User.find({ _id: blog.authorId })
         .exec()
+        .then()
         .then(author => {
             if (author.length === 1) {
                 const prevUser = author[0]
@@ -117,8 +118,8 @@ app.post('/createNewBlog', (req, res) => {
     blog.save().then(result => {
         console.log('blog saved');
         res.redirect(`/blog/${blog._id}`)
-            .catch(err => console.log(err))
     })
+    .catch(err => console.log(err))
 
 
 
@@ -128,9 +129,47 @@ app.post('/createNewBlog', (req, res) => {
     // for redirection
 })
 
+app.post('/like', (req, res) => {
+    const request = JSON.parse(Object.keys(req.body)[0])
+    User.find({_id: request.authorId})
+    .exec()
+    .then(resp => {
+        if(resp.length === 1){
+            if(resp[0].likedBlogs.includes(request.blogId)){
+                console.log('user already likes this blog');
+                res.json({
+                    likes:-1,
+                    dislikes:-1
+                })            
+            }
+            else if(resp[0].disLikedBlogs.includes(request.blogId)){
+                console.log('user disliked this blog now requesting to like');
+                resp[0].disLikedBlogs = resp[0].disLikedBlogs.filter(id => id !== request.blogId)
+                res[0].likedBlogs.push(request.blogId)
+            }
+            else{
+                console.log('like this blog');
+            }
+        }   
+        else
+        {
+
+        } 
+    })
+})
+
+app.post('/dislike', (req, res) => {
+    console.log(JSON.parse(Object.keys(req.body)[0]));
+    res.json({
+        likes:10,
+        dislikes:200
+    })
+})
+
+
 const PORT = 5000
 app.listen(PORT, () => {
-    console.log('server is ready at ' + PORT);
+    console.log('server is ready at port' + PORT);
 })
 
 

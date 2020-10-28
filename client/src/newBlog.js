@@ -53,7 +53,6 @@ function Blog(props) {
 
     function handelChangeBody(event) {
         setBody(event.target.value)
-        setTags(arr)
     }
 
     function addTag(e) {
