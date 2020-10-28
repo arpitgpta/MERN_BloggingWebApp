@@ -79,6 +79,7 @@ app.get('/getBlog/:blogid', (req, res) => {
 
 
 app.post('/createNewBlog', (req, res) => {
+    console.log('1. done');
     const blog = new Blog({
         _id: new mongoose.Types.ObjectId(),
         title: req.body.title,
@@ -125,7 +126,6 @@ app.post('/createNewBlog', (req, res) => {
     // TODO: redirect to newly created blog's page 
     // res.redirect('/newBlog') //----------------- will be removed, just for now
     // for redirection
-
 })
 
 const PORT = 5000

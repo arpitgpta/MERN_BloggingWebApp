@@ -5,10 +5,6 @@ import { Form, FormGroup, Label, Input, Button } from 'reactstrap'
 import Header from './components/header'
 import Footer from './components/footer'
 
-// import Example from './components/newblogform'
-// import InputSkill from './components/InputSkill'
-
-
 /**
  * 
  * @param {props form parent componet} props 
@@ -36,8 +32,6 @@ function Blog(props) {
 
 
     useEffect(() => {
-        tagString.current = JSON.stringify({ tags: tags })
-        console.log(tagString.current);
         setTagString(JSON.stringify({ tags: tags }))
         setTagsArray(tags.map((tag, index) => (
             <span key={index} className="tag">
@@ -56,8 +50,10 @@ function Blog(props) {
     function handelChangeTitle(event) {
         setTitle(event.target.value)
     }
+
     function handelChangeBody(event) {
         setBody(event.target.value)
+        setTags(arr)
     }
 
     function addTag(e) {
@@ -66,6 +62,8 @@ function Blog(props) {
             e.target.value = ''
         }
     }
+
+
 
 
     return (
