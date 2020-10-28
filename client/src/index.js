@@ -1,11 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import {Auth0Provider} from '@auth0/auth0-react'
 import App from './App'
 
-const domain = 'dev-jcff9ksn.us.auth0.com'
-const clientId = '6K7ywUMWutZ41bvFj9x1IKnFAPv2CRDl'
+const domain = 'dev-bwyc6x83.us.auth0.com'
+const clientId = '316I4eZRFsJatRu7NkwF15ShW1bBBqLK'
 
 
 ReactDOM.render(
