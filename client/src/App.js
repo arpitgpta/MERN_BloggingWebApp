@@ -16,7 +16,7 @@ function App() {
             <Route exact path="/" component={Home}></Route>
             <Route exact path="/allBlogs" component={AllBlogs}></Route>
             <Route exact path="/newBlog" component={NewBlog}></Route>
-            <Route path="/blog/:blogid" component={Blog}></Route>
+            <Route path="/blog/:blogId" component={Blog}></Route>
         </BrowserRouter>
     )
 }

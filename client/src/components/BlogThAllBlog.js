@@ -18,7 +18,7 @@ function BlogTH(props) {
     // we will show only first 195 charaters of the 
 
     var addr = '/blog/'+props.blogData._id
-    const {isAuthenticated, user, loginWithPopup} = useAuth0()
+    const {isAuthenticated, loginWithPopup} = useAuth0()
 
     return (
         <div 
@@ -32,7 +32,7 @@ function BlogTH(props) {
              *  
             */ 
             onClick={() => {
-                console.log(user);
+                
                 if(isAuthenticated)
                 {
                     props.history.push(addr)

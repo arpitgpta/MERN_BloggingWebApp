@@ -14,7 +14,7 @@ import ThumsDown from './thumsdown'
 function BlogTH(props) {
     var b = props.blogData.body.substr(0, 195) + '......';
     var addr = '/blog/'+props.blogData._id
-    const {isAuthenticated, user, loginWithPopup} = useAuth0()
+    const {isAuthenticated, loginWithPopup} = useAuth0()
 
     return (
         <div 
@@ -31,7 +31,6 @@ function BlogTH(props) {
             */ 
            
             onClick={() => {
-                console.log(user);
                 if(isAuthenticated)
                 {
                     props.history.push(addr)
