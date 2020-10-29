@@ -31,15 +31,20 @@ app.get('/trendingTopics', (req, res) => {
     TagData.find({}).then(tagData => {
     
         tagData.sort((a, b) => {
-            return b.blogsId.size() - a.blogsId.size()
+            var szb = b.blogsId.length
+            var sza = a.blogsId.length
+            return szb-sza
         }) // sort all blogs
     
     
-        var trendingTags = []
-        for (var i = 0; i < 5; i++)
-            trendingTags.push(tagData[i]) // fetch first 8 trending topics 
-    
-        res.status(200).json(trendingTags)
+        var topics = []
+        // trendingTopics.push(tagData)
+        for (var i = 0; i < 10; i++){
+            topics.push(tagData[i].tagName) // fetch first 10 trending topics 
+            console.log(tagData[i].tagName)
+        }
+        var trendingTopics = { topics }
+        res.status(200).json(trendingTopics)
     })
 })
 
@@ -52,8 +57,8 @@ app.get('/trendingBlogs', (req, res) => {
 
 
         var trendingBlogs = []
-        for (var i = 0; i < 8; i++)
-            trendingBlogs.push(blog[i]) // fetch first 8 trending topics 
+        for (var i = 0; i < 10; i++)
+            trendingBlogs.push(blog[i]) // fetch first 10 trending topics 
 
 
         res.status(200).json(trendingBlogs)
@@ -129,21 +134,23 @@ app.post('/createNewBlog', (req, res) => {
             }
         })
     blog.tags.forEach(element => {
-        TagData.find({ tagName: element })
+        var ele = element.toLowerCase();
+        TagData.find({ tagName: ele })
             .exec()
             .then()
             .then(blogsId => {
+                console.log(ele);
                 if (blogsId.length === 1) {
                     const prevTag = blogsId[0]
                     prevTag.blogsId.push(blog._id)
-                    TagData.updateOne({ tagName: prevTag.tagName }, { blogsId: prevTag.blogsId }, { tagLikesCount : prevTag.tagLikesCount }, () => {
+                    TagData.updateOne({ tagName: prevTag.tagName.toLowerCase() }, { blogsId: prevTag.blogsId }, { tagLikesCount : prevTag.tagLikesCount }, () => {
                         console.log('tags updated');
                     })
                 }
                 else {
                     const tagData = new TagData({
                         // _id: blog.authorId,
-                        tagName: element,
+                        tagName: ele,
                         blogsId: [blog._id], 
                         tagLikesCount: 1
                     })
@@ -218,3 +225,8 @@ app.listen(PORT, () => {
 
 // http://localhost:3000/getBlog/5f992d447707e22977c2337d
 // http://localhost:3000/blog/5f992d447707e22977c2337d
+
+
+
+
+// top author

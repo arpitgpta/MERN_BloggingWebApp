@@ -1,4 +1,5 @@
 import React from 'react'
+// import TagData from '../../models/TagModel'
 import TopicThumbnail from './components/topicThumbnail'
 
 
@@ -15,7 +16,7 @@ class PopularTopics extends React.Component {
             <div className='popularTopics'>
                 <h1 className="popularTopicsHeading">Popular Topics</h1>
                 <div className="popularTopicsContent">
-                    {topic} 
+                    {topic}
                 </div>
             </div>
         )
