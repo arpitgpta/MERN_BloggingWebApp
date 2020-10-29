@@ -5,8 +5,12 @@ const mongoose = require('mongoose')
 // database models
 const Blog = require('./models/blogModel')
 const User = require('./models/userModel')
+<<<<<<< HEAD
 const { findOneAndUpdate } = require('./models/blogModel')
 const { static } = require('express')
+=======
+const TagData = require('./models/TagModel')
+>>>>>>> 3060d1b90e6613378a7198efc8b49a56e80156a5
 
 
 
@@ -37,10 +41,23 @@ app.get('/allBlogs', (req, res) => {
 
 // TODO: still hardcoded we have to write logic to send trending topics only
 app.get('/trendingTopics', (req, res) => {
-    var trendingTopics = {
-        topics: ['Science', 'IoT', 'Maths', 'Jossa', 'CSS', 'Cloud Computing', 'Hacktober', 'NIT Patna', 'Lucknow : The royal city', 'Novels', 'Robotics', 'ES6']
-    }
-    res.json(trendingTopics)
+    // var trendingTopics = {
+    //     topics: ['Science', 'IoT', 'Maths', 'Jossa', 'CSS', 'Cloud Computing', 'Hacktober', 'NIT Patna', 'Lucknow : The royal city', 'Novels', 'Robotics', 'ES6']
+    // }
+    // res.json(trendingTopics)
+    TagData.find({}).then(tagData => {
+    
+        tagData.sort((a, b) => {
+            return b.blogsId.size() - a.blogsId.size()
+        }) // sort all blogs
+    
+    
+        var trendingTags = []
+        for (var i = 0; i < 5; i++)
+            trendingTags.push(tagData[i]) // fetch first 8 trending topics 
+    
+        res.status(200).json(trendingTags)
+    })
 })
 
 
@@ -174,6 +191,34 @@ app.post('/createNewBlog', (req, res) => {
 
             }
         })
+    blog.tags.forEach(element => {
+        TagData.find({ tagName: element })
+            .exec()
+            .then()
+            .then(blogsId => {
+                if (blogsId.length === 1) {
+                    const prevTag = blogsId[0]
+                    prevTag.blogsId.push(blog._id)
+                    TagData.updateOne({ tagName: prevTag.tagName }, { blogsId: prevTag.blogsId }, { tagLikesCount : prevTag.tagLikesCount }, () => {
+                        console.log('tags updated');
+                    })
+                }
+                else {
+                    const tagData = new TagData({
+                        // _id: blog.authorId,
+                        tagName: element,
+                        blogsId: [blog._id], 
+                        tagLikesCount: 1
+                    })
+                    tagData.save()
+                    .then(result => {
+                        console.log('tags created');
+                        console.log(result);
+                    })
+                    .catch(err => console.log(err))
+                }
+            })
+    })
 
 
     blog.save().then(result => {
@@ -184,8 +229,7 @@ app.post('/createNewBlog', (req, res) => {
 
 
 
-
-    // TODO: redirect to newly created blog's page 
+    // TODO: redirect to newly created blog's page
     // res.redirect('/newBlog') //----------------- will be removed, just for now
     // for redirection
 })
@@ -213,6 +257,7 @@ app.post('/like', (req, res) => {
      * 3. list of tags
      */
     const request = JSON.parse(Object.keys(req.body)[0])
+<<<<<<< HEAD
 
     /**  
      * Also there are two cases 
@@ -309,6 +354,23 @@ app.post('/like', (req, res) => {
                         })
                         .catch(err => console.log(err))
                 }
+=======
+    User.find({_id: request.authorId})
+    .exec()
+    .then(resp => {
+        if(resp.length === 1){
+            if(resp[0].likedBlogs.includes(request.blogId)){
+                console.log('user already likes this blog');
+                res.json({
+                    likes:-1,
+                    dislikes:-1
+                })
+            }
+            else if(resp[0].disLikedBlogs.includes(request.blogId)){
+                console.log('user disliked this blog now requesting to like');
+                resp[0].disLikedBlogs = resp[0].disLikedBlogs.filter(id => id !== request.blogId)
+                res[0].likedBlogs.push(request.blogId)
+>>>>>>> 3060d1b90e6613378a7198efc8b49a56e80156a5
             }
             else { // for new user
                 console.log('called to like new user');
@@ -333,9 +395,18 @@ app.post('/like', (req, res) => {
                     })
                     .catch(err => console.log(err))
             }
+<<<<<<< HEAD
         })
         .catch(err => console.log(err))
 
+=======
+        }
+        else
+        {
+
+        }
+    })
+>>>>>>> 3060d1b90e6613378a7198efc8b49a56e80156a5
 })
 
 
