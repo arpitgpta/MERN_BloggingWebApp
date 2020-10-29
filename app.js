@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const Blog = require('./models/blogModel')
 const User = require('./models/userModel')
+const TagData = require('./models/TagModel')
 
 
 mongoose.connect('mongodb+srv://saketvajpai:saketvajpai@cluster0.ahl3y.mongodb.net/ContentWise?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
@@ -23,10 +24,23 @@ app.get('/allBlogs', (req, res) => {
 
 // TODO: still hardcoded we have to write logic to send trending topics only
 app.get('/trendingTopics', (req, res) => {
-    var trendingTopics = {
-        topics: ['Science', 'IoT', 'Maths', 'Jossa', 'CSS', 'Cloud Computing', 'Hacktober', 'NIT Patna', 'Lucknow : The royal city', 'Novels', 'Robotics', 'ES6']
-    }
-    res.json(trendingTopics)
+    // var trendingTopics = {
+    //     topics: ['Science', 'IoT', 'Maths', 'Jossa', 'CSS', 'Cloud Computing', 'Hacktober', 'NIT Patna', 'Lucknow : The royal city', 'Novels', 'Robotics', 'ES6']
+    // }
+    // res.json(trendingTopics)
+    TagData.find({}).then(tagData => {
+    
+        tagData.sort((a, b) => {
+            return b.blogsId.size() - a.blogsId.size()
+        }) // sort all blogs
+    
+    
+        var trendingTags = []
+        for (var i = 0; i < 5; i++)
+            trendingTags.push(tagData[i]) // fetch first 8 trending topics 
+    
+        res.status(200).json(trendingTags)
+    })
 })
 
 app.get('/trendingBlogs', (req, res) => {
@@ -114,6 +128,34 @@ app.post('/createNewBlog', (req, res) => {
                     .catch(err => console.log(err))
             }
         })
+    blog.tags.forEach(element => {
+        TagData.find({ tagName: element })
+            .exec()
+            .then()
+            .then(blogsId => {
+                if (blogsId.length === 1) {
+                    const prevTag = blogsId[0]
+                    prevTag.blogsId.push(blog._id)
+                    TagData.updateOne({ tagName: prevTag.tagName }, { blogsId: prevTag.blogsId }, { tagLikesCount : prevTag.tagLikesCount }, () => {
+                        console.log('tags updated');
+                    })
+                }
+                else {
+                    const tagData = new TagData({
+                        // _id: blog.authorId,
+                        tagName: element,
+                        blogsId: [blog._id], // i think to keep in array
+                        tagLikesCount: 1
+                    })
+                    tagData.save()
+                    .then(result => {
+                        console.log('tags created');
+                        console.log(result);
+                    })
+                    .catch(err => console.log(err))
+                }
+            })
+    })
 
     blog.save().then(result => {
         console.log('blog saved');
@@ -123,8 +165,7 @@ app.post('/createNewBlog', (req, res) => {
 
 
 
-
-    // TODO: redirect to newly created blog's page 
+    // TODO: redirect to newly created blog's page
     // res.redirect('/newBlog') //----------------- will be removed, just for now
     // for redirection
 })
@@ -140,7 +181,7 @@ app.post('/like', (req, res) => {
                 res.json({
                     likes:-1,
                     dislikes:-1
-                })            
+                })
             }
             else if(resp[0].disLikedBlogs.includes(request.blogId)){
                 console.log('user disliked this blog now requesting to like');
@@ -150,11 +191,11 @@ app.post('/like', (req, res) => {
             else{
                 console.log('like this blog');
             }
-        }   
+        }
         else
         {
 
-        } 
+        }
     })
 })
 
