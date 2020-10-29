@@ -144,7 +144,7 @@ app.post('/createNewBlog', (req, res) => {
                     const tagData = new TagData({
                         // _id: blog.authorId,
                         tagName: element,
-                        blogsId: [blog._id], // i think to keep in array
+                        blogsId: [blog._id], 
                         tagLikesCount: 1
                     })
                     tagData.save()
