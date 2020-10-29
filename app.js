@@ -5,12 +5,9 @@ const mongoose = require('mongoose')
 // database models
 const Blog = require('./models/blogModel')
 const User = require('./models/userModel')
-<<<<<<< HEAD
 const { findOneAndUpdate } = require('./models/blogModel')
 const { static } = require('express')
-=======
 const TagData = require('./models/TagModel')
->>>>>>> 3060d1b90e6613378a7198efc8b49a56e80156a5
 
 
 
@@ -257,7 +254,6 @@ app.post('/like', (req, res) => {
      * 3. list of tags
      */
     const request = JSON.parse(Object.keys(req.body)[0])
-<<<<<<< HEAD
 
     /**  
      * Also there are two cases 
@@ -354,23 +350,6 @@ app.post('/like', (req, res) => {
                         })
                         .catch(err => console.log(err))
                 }
-=======
-    User.find({_id: request.authorId})
-    .exec()
-    .then(resp => {
-        if(resp.length === 1){
-            if(resp[0].likedBlogs.includes(request.blogId)){
-                console.log('user already likes this blog');
-                res.json({
-                    likes:-1,
-                    dislikes:-1
-                })
-            }
-            else if(resp[0].disLikedBlogs.includes(request.blogId)){
-                console.log('user disliked this blog now requesting to like');
-                resp[0].disLikedBlogs = resp[0].disLikedBlogs.filter(id => id !== request.blogId)
-                res[0].likedBlogs.push(request.blogId)
->>>>>>> 3060d1b90e6613378a7198efc8b49a56e80156a5
             }
             else { // for new user
                 console.log('called to like new user');
@@ -395,18 +374,9 @@ app.post('/like', (req, res) => {
                     })
                     .catch(err => console.log(err))
             }
-<<<<<<< HEAD
         })
         .catch(err => console.log(err))
 
-=======
-        }
-        else
-        {
-
-        }
-    })
->>>>>>> 3060d1b90e6613378a7198efc8b49a56e80156a5
 })
 
 
