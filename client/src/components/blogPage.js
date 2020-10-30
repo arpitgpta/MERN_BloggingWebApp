@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useAuth0 } from '@auth0/auth0-react'
 
@@ -58,7 +58,6 @@ function Blog(props) {
             url
         };
         axios(options).then(res => {
-            console.log(res.data);
             if (res.data.likes !== -1) {
                 setLikes(res.data.likes)
                 setDislikes(res.data.dislikes)
@@ -78,7 +77,6 @@ function Blog(props) {
             url
         };
         axios(options).then(res => {
-            console.log(res.data);
             if (res.data.likes !== -1) {
                 setLikes(res.data.likes)
                 setDislikes(res.data.dislikes)
@@ -102,8 +100,8 @@ function Blog(props) {
                 setDislikes(x.data.dislikes)
                 setTags(x.data.tags)
                 setTagsWithStyle(
-                    x.data.tags.map(tag => {
-                        return <div className='blogpage-tag'>{tag}</div>
+                    x.data.tags.map((tag, index) => {
+                        return <div className='blogpage-tag' key={index}>{tag}</div>
                     })
                 )
             })
@@ -120,11 +118,11 @@ function Blog(props) {
             <div className="blogPage">
                 <h1>{title}</h1>
                 <p>{addedOn}</p>
-                <p>{tagsWithStyle}</p>
-                <p className="blogPageBody">{body}</p>
+                <div>{tagsWithStyle}</div>
+                <div className="blogPageBody">{body}</div>
             </div>
             <div className="blogInfo">
-                <p>
+                <div>
                     By: {author}
 
                     <div className='like-button' onClick={() => likePost(blogId, userId, tags)}>
@@ -134,7 +132,7 @@ function Blog(props) {
                     <div className='dislike-button' onClick={() => disLikePost(blogId, userId, tags)}>
                         <ThumsDown /> {dislikes}
                     </div>
-                </p>
+                </div>
             </div>
             <Footer />
         </>

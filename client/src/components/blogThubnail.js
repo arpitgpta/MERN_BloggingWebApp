@@ -12,7 +12,12 @@ import ThumsDown from './thumsdown'
  */
 
 function BlogTH(props) {
-    var b = props.blogData.body.substr(0, 195) + '......';
+    var blog = props.blogData.body.substr(0, 195) 
+    if(blog.length >= 190)
+        blog += '...'
+    var heading = props.blogData.title.substr(0, 33)
+    if(props.blogData.title.length > 33)
+        heading += '...'
     var addr = '/blog/'+props.blogData._id
     const {isAuthenticated, loginWithPopup} = useAuth0()
 
@@ -39,13 +44,13 @@ function BlogTH(props) {
                 loginWithPopup()
             }}>
                 
-            <h3>{props.blogData.title}</h3>
+            <h3>{heading}</h3>
             <p>By: {props.blogData.author}</p>
             <ThumsUp /> {props.blogData.likes}
             <br />
             <ThumsDown /> {props.blogData.dislikes}
             <hr />
-            <p>{b}</p>
+            <p>{blog}</p>
         </div>
     )
 }

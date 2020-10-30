@@ -156,13 +156,13 @@ body {
 }
 
 .blogpage-tag{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   display: inline-block;
-	margin: 0px 15px 0px 0px;
+	margin: 10px 15px 10px 0px;
 	color: white;
 	background-color: rgb(90, 88, 88);
 	padding: 3px 10px;
 	border-radius: 5px;
-  font-size: 1.2rem;
 }
 .like-button:hover{
   cursor: pointer;

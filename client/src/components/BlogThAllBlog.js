@@ -14,7 +14,12 @@ import ThumsDown from './thumsdown'
  * @param {proprties from parent componets} props 
  */
 function BlogTH(props) {
-    var b = props.blogData.body.substr(0, 195) + '......';
+    var blog = props.blogData.body.substr(0, 195) 
+    if(blog.length >= 190)
+        blog += '...'
+    var heading = props.blogData.title.substr(0, 33)
+    if(props.blogData.title.length > 33)
+        heading += '...'
     // we will show only first 195 charaters of the 
 
     var addr = '/blog/'+props.blogData._id
@@ -41,14 +46,14 @@ function BlogTH(props) {
                 loginWithPopup()
             }}>
                 
-            <h3 className='blogThHeading'>{props.blogData.title}</h3>
+            <h3 className='blogThHeading'>{heading}</h3>
             <p>By: {props.blogData.author}</p>
             <ThumsUp /> {props.blogData.likes}
             <br />
             
             <ThumsDown /> {props.blogData.dislikes}
             <hr />
-            <p>{b}</p>
+            <p>{blog}</p>
         </div>
     )
 }

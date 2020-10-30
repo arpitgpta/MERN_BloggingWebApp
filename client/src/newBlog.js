@@ -17,7 +17,7 @@ import Footer from './components/footer'
  */
 
 function Blog(props) {
-    const { isAuthenticated, user } = useAuth0()
+    const { isAuthenticated, user, loginWithRedirect } = useAuth0()
     const [title, setTitle] = useState('')
     const [body, setBody] = useState('')
     const [tags, setTags] = useState([])
@@ -64,43 +64,49 @@ function Blog(props) {
 
 
 
-
-    return (
-        <>
-            <Header history={props.history} />
-            <div className='new-blog'>
-                <h2>New Blog</h2>
-                <Form id='newBlogForm' action='/createNewBlog' method='Post'>
-                    <input type='text' name='author' value={author} readOnly hidden />
-                    <input type='text' name='authorID' value={authorID} readOnly hidden />
-                    <FormGroup>
-                        <Label>Title:</Label>
-                        <Input type='text' name='title' value={title} onChange={handelChangeTitle} autoComplete={'off'} />
-                    </FormGroup>
-
-                    <FormGroup>
-                        <Label>Body:</Label>
-                        <Input type='textarea' rows={8} name='body' value={body} onChange={handelChangeBody} />
-                    </FormGroup>
-
-                    <input name='tagString' value={tagString} readOnly hidden />
-
-                    <Button color='success' type='submit' className='submit-button'>Add blog</Button>
-                </Form>
-                <br />
-
-                <div className='tag-field-container'>
-                    <Label>Tags:</Label>
-                    <div className='tags-field'>
-                        <span className='display-tags'> {tagsArray} </span>
-                        <input placeholder={'Press Enter to add tag'} onKeyUp={e => e.key === 'Enter' ? addTag(e) : null} />
-
+    if(isAuthenticated)
+    {
+        return (
+            <>
+                <Header history={props.history} />
+                <div className='new-blog'>
+                    <h2>New Blog</h2>
+                    <Form id='newBlogForm' action='/createNewBlog' method='Post'>
+                        <input type='text' name='author' value={author} readOnly hidden />
+                        <input type='text' name='authorID' value={authorID} readOnly hidden />
+                        <FormGroup>
+                            <Label>Title:</Label>
+                            <Input type='text' name='title' value={title} onChange={handelChangeTitle} autoComplete={'off'} required/>
+                        </FormGroup>
+    
+                        <FormGroup>
+                            <Label>Body:</Label>
+                            <Input type='textarea' rows={8} name='body' value={body} onChange={handelChangeBody} required/>
+                        </FormGroup>
+    
+                        <input name='tagString' value={tagString} readOnly hidden />
+    
+                        <Button color='success' type='submit' className='submit-button'>Add blog</Button>
+                    </Form>
+                    <br />
+    
+                    <div className='tag-field-container'>
+                        <Label>Tags:</Label>
+                        <div className='tags-field'>
+                            <span className='display-tags'> {tagsArray} </span>
+                            <input placeholder={'Press Enter to add tag'} onKeyUp={e => e.key === 'Enter' ? addTag(e) : null} />
+    
+                        </div>
                     </div>
                 </div>
-            </div>
-            <Footer />
-        </>
-    )
+                <Footer />
+            </>
+        )
+    }
+    else{
+        loginWithRedirect()
+        return(<h1>Redirecting to Loging.....</h1>)
+    }
 }
 
 export default Blog
