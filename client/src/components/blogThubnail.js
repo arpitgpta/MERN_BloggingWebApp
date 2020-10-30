@@ -10,10 +10,16 @@ import ThumsDown from './thumsdown'
  * @param {properties from parent componet} props 
  * thumbnail for blog in landing page
  */
+
 function BlogTH(props) {
-    var b = props.blogData.body.substr(0, 195) + '......';
+    var blog = props.blogData.body.substr(0, 195) 
+    if(blog.length >= 190)
+        blog += '...'
+    var heading = props.blogData.title.substr(0, 33)
+    if(props.blogData.title.length > 33)
+        heading += '...'
     var addr = '/blog/'+props.blogData._id
-    const {isAuthenticated, user, loginWithPopup} = useAuth0()
+    const {isAuthenticated, loginWithPopup} = useAuth0()
 
     return (
         <div 
@@ -28,8 +34,8 @@ function BlogTH(props) {
              * else pop up to login  
              *  
             */ 
+           
             onClick={() => {
-                console.log(user);
                 if(isAuthenticated)
                 {
                     props.history.push(addr)
@@ -38,13 +44,13 @@ function BlogTH(props) {
                 loginWithPopup()
             }}>
                 
-            <h3>{props.blogData.title}</h3>
+            <h3>{heading}</h3>
             <p>By: {props.blogData.author}</p>
             <ThumsUp /> {props.blogData.likes}
             <br />
             <ThumsDown /> {props.blogData.dislikes}
             <hr />
-            <p>{b}</p>
+            <p>{blog}</p>
         </div>
     )
 }

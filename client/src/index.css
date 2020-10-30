@@ -155,6 +155,24 @@ body {
   left: 100px;
 }
 
+.blogpage-tag{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  display: inline-block;
+	margin: 10px 15px 10px 0px;
+	color: white;
+	background-color: rgb(90, 88, 88);
+	padding: 3px 10px;
+	border-radius: 5px;
+}
+.like-button:hover{
+  cursor: pointer;
+}
+
+
+.dislike-button:hover{
+  cursor: pointer;
+}
+
 /* Footer */
 
 .footer {
@@ -178,3 +196,5 @@ body {
   color: #efe375;
 }
   
+
+

@@ -1,5 +1,5 @@
 {
     "env" : {
-        "MONGO_ATLAS_PW" : "Krg@040#" 
+        "MONGO_ATLAS_PW" : "#" 
     }
 }  

@@ -1,17 +1,20 @@
 import React from 'react'
-
+// import axios from 'axios'
 
 /**
  * component for every author in landing page's popular author section
- * TODO: fetch oroginal data and populate with that
+ * TODO: fetch original data and populate with that
  */
-function AuthorThumbnail(){
+
+
+
+function AuthorThumbnail(props){
     return(
         <div className='authorThumbnail'>
-            <div className="authorThumbnailPic"></div>
             <div className="authorThumbnailData">
-                <h4>Mr. XYZ kkg</h4>
-                <p>this is all about the author who is one of the most popular one among 500 aurhors of this site</p>
+                <h3>{(props.data.name).toUpperCase()}</h3>
+                <h4>Likes: {props.data.likeCount}</h4>
+                <h4>Blogs: {props.data.blogs}</h4>
             </div>
         </div>
     )

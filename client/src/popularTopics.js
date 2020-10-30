@@ -3,7 +3,6 @@ import TopicThumbnail from './components/topicThumbnail'
 
 
 class PopularTopics extends React.Component {
-    // console.log(topic)
     render() {
         let topic = []
         if(this.props.topics !== '.....loading')
