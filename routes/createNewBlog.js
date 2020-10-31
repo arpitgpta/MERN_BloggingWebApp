@@ -79,9 +79,12 @@ router.post('/', (req, res) => {
 
 
     blog.save().then(() => {
-        res.redirect('/allBlogs')
+        res.redirect(`/blog/${blog._id}`)
     })
-        .catch(err => console.log(err))
+        .catch(err => {
+            console.log(err)
+            res.send('<h1>Something Went wrong, sorry</h1>')
+        })
 })
 
 

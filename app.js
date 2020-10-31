@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
+const path = require('path')
 
 
 // database models
@@ -29,30 +30,36 @@ mongoose.connect('mongodb+srv://saketvajpai:saketvajpai@cluster0.ahl3y.mongodb.n
     .catch(err => console.log(err))
 
 
-    const app = express()
+const app = express()
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(express.static(__dirname + '/client/public'))
+// app.use(express.static(path.join(__dirname, '/client/public')))
+// app.use(express.static(path.join(__dirname, 'client/build')))
+
+app.use(express.static(path.join(__dirname, 'client', 'build')));
+app.use(express.static(path.join(__dirname, 'client', 'public')));
+
+// app.get('/', function (req, res) {
+//   res.sendFile(path.join(__dirname, 'build', 'index.html'));
+// });
 
 
-app.use('/allBlogs', allBlogsRoute)
 
+
+app.use('/fetchAllBlogs', allBlogsRoute)
 app.use('/trendingTopics', trendingTopicsRoute)
-
 app.use('/trendingBlogs', trendingBlogsRoute)
-
 app.use('/popularAuthors', popularAuthorsRoute)
-
 app.use('/getBlog', getBlogRoute)
-
 app.use('/createNewBlog', createNewBlogRoute)
-
 app.use('/like', likeRoute)
-
 app.use('/dislike', disLikeRoute)
 
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
+})
 
 
-const PORT = 5000
+const PORT = 5005
 app.listen(PORT, () => {
     console.log('server is ready at port ' + PORT);
 })
