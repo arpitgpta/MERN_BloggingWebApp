@@ -3,7 +3,7 @@ import React from 'react'
 
 /**
  * component for every author in landing page's popular author section
- * TODO: fetch original data and populate with that
+ * 
  */
 
 

@@ -18,7 +18,7 @@ function AllBlogs(props) {
 
     useEffect(() => { // this hook is same as componetDidMount function in class based componet
 
-        axios.get('/allBlogs').then((response) => { // getting data for all blogs and 
+        axios.get('/fetchAllBlogs').then((response) => { // getting data for all blogs and 
             // making array of thumbnails for every blog
             if(response.data.length >= 1)
             {
