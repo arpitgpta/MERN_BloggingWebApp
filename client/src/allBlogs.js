@@ -9,7 +9,7 @@ import BlogThumbnail from './components/BlogThAllBlog'
 
 /**
  * 
- * @param {props from parent componet} props 
+ * @param {props from parent component} props 
  * All blog page, contains thumbnail for all blogs 
  */
 function AllBlogs(props) {
@@ -37,7 +37,6 @@ function AllBlogs(props) {
                 <div className='allBlogContent'>
                     {blogs}
                 </div>
-                <Footer />
             </div>
         )
     }
