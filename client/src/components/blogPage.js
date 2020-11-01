@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { useAuth0 } from '@auth0/auth0-react'
+
 
 import Header from './header'
 import Footer from './footer'
@@ -11,64 +13,42 @@ import ThumsDown from './thumsdown'
 // indivisual page for ever blog with expanded content 
 
 
-// TODO: add like and dislike buttons and there backend logic 
+function changeDateFormate(addedOn) {
+    // let addedOn = x.data.addedOn
+    let y = +(addedOn.substr(0, 4))
+    let m = +(addedOn.substr(5, 2))
+    let d = +(addedOn.substr(8, 2))
+    let date = new Date(y, m - 1, d)
+    let options = { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' }
+    let day = (date.toLocaleDateString('en-us', options))
+    return day
+}
 
+function Blog(props) {
 
-class Blog extends React.Component {
+    const { isAuthenticated, user } = useAuth0()
+    const blogId = props.match.params.blogId
+    const [title, setTitle] = useState('Loading.....')
+    const [body, setBody] = useState('')
+    const [addedOn, setAddedOn] = useState('')
+    const [author, setAuthor] = useState('..')
+    const [likes, setLikes] = useState('')
+    const [dislikes, setDislikes] = useState('')
+    const [tags, setTags] = useState([])
+    const [tagsWithStyle, setTagsWithStyle] = useState([])
 
-    constructor(props) {
-        super(props)
-        this.state = { // initilize dummy states
-            about: props.match.params.blogid,
-            title: 'Loading.....',
-            body: '',
-            addedOn: '',
-            author: '....',
-            likes: '...',
-            dislikes: '...',
-            tags: []
-        }
-    }
+    let userId = ''
+    if (isAuthenticated)
+        userId = user.sub
+    useEffect(() => {
+        if (isAuthenticated)
+            userId = user.sub
+    }, [isAuthenticated])
 
-    /**
-     * function to fetch data from server
-     */
-    loadData = () => {
-
-        axios.get('/getBlog/' + this.state.about).then((x) => { // here we are making proxy request 
-            // to another url i.e. server's url
-
-            let addedOn = x.data.addedOn
-            let y = +(addedOn.substr(0, 4))
-            let m = +(addedOn.substr(5, 2))
-            let d = +(addedOn.substr(8, 2))
-            let date = new Date(y, m - 1, d)
-            let options = { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' }
-            let day = (date.toLocaleDateString('en-us', options))
-
-            this.setState({ // update state with orignal values
-                title: x.data.title,
-                body: x.data.body,
-                blogId: x.data._id,
-                addedOn: day,
-                author: x.data.author,
-                authorId: x.data.authorId,
-                likes: x.data.likes,
-                dislikes: x.data.dislikes,
-                tags: x.data.tags.map(tag => <div className='blogpage-tag'>{tag}</div>)
-            })
-        })
-    }
-
-    componentDidMount() {
-        this.loadData()
-    }
-
-    likePost = () => {
-        const authorId = this.state.authorId
-        const blogId = this.state.blogId
+    // TODO: add like and dislike buttons and there backend logic 
+    function likePost(blogId, userId) {
         const data = {
-            authorId, blogId
+            userId, blogId
         };
         const url = '/like'
         const options = {
@@ -78,22 +58,16 @@ class Blog extends React.Component {
             url
         };
         axios(options).then(res => {
-            if(res.data.likes !== -1)
-            {
-                this.setState({
-                    likes: res.data.likes,
-                    dislikes: res.data.dislikes
-                })
+            if (res.data.likes !== -1) {
+                setLikes(res.data.likes)
+                setDislikes(res.data.dislikes)
             }
         })
     }
 
-    disLikePost = () => {
-        const authorId = this.state.authorId
-        const blogId = this.state.blogId
-//TODO:
+    function disLikePost(blogId, userId) {
         const data = {
-            authorId, blogId
+            userId, blogId
         };
         const url = '/dislike'
         const options = {
@@ -103,43 +77,67 @@ class Blog extends React.Component {
             url
         };
         axios(options).then(res => {
-
-            this.setState({
-                likes: res.data.likes,
-                dislikes: res.data.dislikes
-            })
+            if (res.data.likes !== -1) {
+                setLikes(res.data.likes)
+                setDislikes(res.data.dislikes)
+            }
         })
     }
 
-    render() {
-        return (
-            <>
-                <Header history={this.props.history} />{/* we need to send history property so that we can 
-                                                           redirect from chied compont too  else we can do this
-                                                           from componts in direct child fo Router tag only*/}
-                <div className="blogPage">
-                    <h1>{this.state.title}</h1>
-                    <p>{this.state.addedOn}</p>
-                    <p>{this.state.tags}</p>
-                    <p className="blogPageBody">{this.state.body}</p>
-                </div>
-                <div className="blogInfo">
-                    <p>
-                        By: {this.state.author}
 
-                        <div className='like-button' onClick={this.likePost}>
-                            <ThumsUp /> {this.state.likes}
-                        </div>
 
-                        <div className='dislike-button' onClick={this.disLikePost}>
-                            <ThumsDown /> {this.state.dislikes}
-                        </div>
-                    </p>
+    useEffect(() => {
+        axios.get('/getBlog/' + blogId)
+            .then((x) => {
+
+                let day = changeDateFormate(x.data.addedOn)
+
+                setTitle(x.data.title)
+                setBody(x.data.body)
+                setAddedOn(day)
+                setAuthor(x.data.author)
+                setLikes(x.data.likes)
+                setDislikes(x.data.dislikes)
+                setTags(x.data.tags)
+                setTagsWithStyle(
+                    x.data.tags.map((tag, index) => {
+                        return <div className='blogpage-tag' key={index}>{tag}</div>
+                    })
+                )
+            })
+
+    }, [])
+
+
+
+    return (
+        <>
+            <Header history={props.history} />{/* we need to send history property so that we can 
+                                                       redirect from chied compont too  else we can do this
+                                                       from componts in direct child fo Router tag only*/}
+            <div className="blogPage">
+                <h1>{title}</h1>
+                <p>{addedOn}</p>
+                <div>{tagsWithStyle}</div>
+                <div className="blogPageBody">{body}</div>
+            </div>
+            <div className="blogInfo">
+                <div>
+                    By: {author}
+
+                    <div className='like-button' onClick={() => likePost(blogId, userId, tags)}>
+                        <ThumsUp /> {likes}
+                    </div>
+
+                    <div className='dislike-button' onClick={() => disLikePost(blogId, userId, tags)}>
+                        <ThumsDown /> {dislikes}
+                    </div>
                 </div>
-                <Footer />
-            </>
-        )
-    }
+            </div>
+            <Footer />
+        </>
+    )
+
 }
 
 export default Blog
