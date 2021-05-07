@@ -21,7 +21,7 @@ const createNewBlogRoute = require('./routes/createNewBlog')
 
 
 // connecting to database
-mongoose.connect('mongodb+srv://saketvajpai:saketvajpai@cluster0.ahl3y.mongodb.net/ContentWise?retryWrites=true&w=majority', {
+mongoose.connect('', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
